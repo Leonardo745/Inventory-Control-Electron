@@ -4,7 +4,7 @@ const url = require("url");
 
 function createWindow(){
     const win = new BrowserWindow({
-        width: 800,
+        width: 1000,
         height:600,
         minWidth: 800,
         minHeight:600,
@@ -17,7 +17,7 @@ function createWindow(){
 
     });
 
-    win.loadURL("http://localhost:3002");
+    win.loadURL("http://localhost:3000");
 
     // if (process.env.NODE_ENV === 'development')
     // {
