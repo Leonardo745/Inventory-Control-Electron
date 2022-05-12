@@ -1,11 +1,11 @@
 const {app, BrowserWindow} = require("electron");
 const path = require("path");
-const url = require("url");
+//const url = require("url");
 
 function createWindow(){
     const win = new BrowserWindow({
         width: 1000,
-        height:600,
+        height:700,
         minWidth: 800,
         minHeight:600,
         resizable: false,
@@ -17,7 +17,7 @@ function createWindow(){
 
     });
 
-    win.loadURL("http://localhost:3000");
+    win.loadURL("http://localhost:3001");
 
     // if (process.env.NODE_ENV === 'development')
     // {
