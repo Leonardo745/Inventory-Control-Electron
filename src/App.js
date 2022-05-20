@@ -66,6 +66,10 @@ function App() {
     },
   ];
 
+  function salvar(data){
+    
+  }
+
   return (
     <div className="container">
       <div className="header">
@@ -73,7 +77,7 @@ function App() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button>Adicionar Produto</button>
+          <button onClick={salvar()}>Adicionar Produto</button>
           <button>Adicionar Categoria</button>
         </div>
       </div>
