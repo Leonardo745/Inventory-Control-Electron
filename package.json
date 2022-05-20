@@ -7,6 +7,9 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-json-storage": "^4.5.0",
+    "electron-store": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
@@ -14,11 +17,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3010 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron": "electron .",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3010 && electron .\""
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +43,9 @@
     ]
   },
   "devDependencies": {
-    "electron": "^18.2.0"
+    "concurrently": "^7.2.0",
+    "electron": "^18.2.0",
+    "electron-builder": "^23.0.3",
+    "wait-on": "^6.0.1"
   }
 }
