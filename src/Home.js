@@ -1,8 +1,13 @@
-import logo from "./logo.svg";
-import "./App.css";
-import "./styles.css";
+import logo from "../public/images/logo.svg";
+import "../styles/styles.css";
+import React from 'react';
 
-function App() {
+async function AddItem() {
+    let result = await Api.sayHello("Vim do react");
+    console.log(result);
+  }
+
+function Home() {
   const categorys = [
     {
       name: "Todos",
@@ -73,7 +78,7 @@ function App() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button>Adicionar Produto</button>
+          <button onClick={AddItem}>Adicionar Produto</button>
           <button>Adicionar Categoria</button>
         </div>
       </div>
@@ -116,4 +121,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
