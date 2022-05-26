@@ -124,13 +124,5 @@ function Home() {
   );
 }
 
-export default function Home(){
-  return(
-    <div className="Home">
-      <button>Mostral modal</button>
-      <AddItem/>
-    </div>
-  );
-}
 
 export default Home;
