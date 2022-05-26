@@ -1,6 +1,8 @@
 import logo from "../public/images/logo.svg";
 import "../styles/styles.css";
 import React from 'react';
+import ModalAddItem from"./component/ModalAddItem";
+
 
 async function AddItem() {
     let result = await Api.sayHello("Vim do react");
@@ -117,8 +119,10 @@ function Home() {
           </div>
         ))}
       </div>
+      <ModalAddItem/>
     </div>
   );
 }
+
 
 export default Home;
