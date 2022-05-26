@@ -3,6 +3,7 @@ import "../styles/styles.css";
 import React from 'react';
 import ModalAddItem from"./component/ModalAddItem";
 
+
 async function AddItem() {
     let result = await Api.sayHello("Vim do react");
     console.log(result);
@@ -119,6 +120,15 @@ function Home() {
         ))}
       </div>
       <ModalAddItem/>
+    </div>
+  );
+}
+
+export default function Home(){
+  return(
+    <div className="Home">
+      <button>Mostral modal</button>
+      <AddItem/>
     </div>
   );
 }
