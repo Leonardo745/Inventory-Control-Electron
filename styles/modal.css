@@ -18,8 +18,6 @@
 .modal-header,
 .modal-footer {
     padding: 10px;
-    width: 1000px;
-    margin: 0 auto;
 }
 
 .modal-content {
