@@ -2,6 +2,7 @@ import logo from "../public/images/logo.svg";
 import "../styles/styles.css";
 import React from "react";
 import { useState, useEffect } from "react";
+import ModalAddItem from"./component/ModalAddItem";
 
 function Home() {
   const produtos2 = [
@@ -137,8 +138,8 @@ function Home() {
             ))
           : null}
       </div>
+      <ModalAddItem/>
     </div>
   );
 }
-
 export default Home;
