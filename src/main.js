@@ -14,11 +14,11 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1000,
-    height:700,
+    height: 700,
     minWidth: 800,
-    minHeight:600,
+    minHeight: 600,
     resizable: false,
-    title:"Sistema de Estoque",
+    title: "Sistema de Estoque",
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -56,12 +56,19 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.handle("say-hello", (event, args) => {
+ipcMain.handle("save-data", (event, args) => {
   console.log(args);
-  
-  storage.set("foobar", { foo: args }, function (error) {
+
+  storage.set("save", args, function (error) {
     if (error) throw error;
   });
 
-  return "Resposta da main.js " + app.getVersion();
+  return 0;
+});
+
+ipcMain.handle("read-data", (event) => {
+  var data = storage.getSync("save");
+
+  console.log("Data lida na Main.js: " + data);
+  return data;
 });
