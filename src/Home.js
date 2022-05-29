@@ -78,9 +78,7 @@ export default function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button onClick={() => setModalAddItemVisibility(true)}>
-            Adicionar Produto
-          </button>
+          <button>Adicionar Produto</button>
           <button onClick={handleLoadData}>Adicionar Categoria</button>
         </div>
       </div>
@@ -136,6 +134,15 @@ export default function Home() {
             ))
           : null}
       </div>
+      <div className="retiradaBtnContainer">
+        <button
+          className="retiradaBtn"
+          onClick={() => setModalAddItemVisibility(true)}
+        >
+          Registrar Retirada
+        </button>
+      </div>
+
       <ModalAddItem
         show={modalAddItemVisibility}
         onClose={() => setModalAddItemVisibility(false)}

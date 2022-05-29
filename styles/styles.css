@@ -71,7 +71,7 @@ button {
   overflow-y: scroll;
 }
 
-.categoryDivisor{
+.categoryDivisor {
   margin-left: 10px;
   margin-right: 30px;
   margin-top: 10px;
@@ -128,4 +128,15 @@ button {
 
 .numberContainer {
   align-self: center;
+}
+
+.retiradaBtnContainer {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.retiradaBtn {
+  width: 30%;
 }

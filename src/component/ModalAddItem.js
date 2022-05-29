@@ -50,13 +50,13 @@ const ModalAddItem = (props) => {
   if (!props.show) {
     return null;
   }
-    return (
-      <div className="modal" onClick={props.onClose}>
-        <div className="modal-content" onClick={e => e.stopPropagation()}>
-          <div className="modal-header">
-            <h4 className="modal-title">Lista de retirada</h4>
-          </div>
-          <div className="modal-body">
+  return (
+    <div className="modal" onClick={props.onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h4 className="modal-title">Lista de retirada</h4>
+        </div>
+        <div className="modal-body">
           <div className="cardsContainerAdd">
             {produtos.map((produto, key) => (
               <div key={key} className="cards">
@@ -87,14 +87,14 @@ const ModalAddItem = (props) => {
                 </div>
               </div>
             ))}
-            </div>
-          </div>
-          <div className="modal-footer">
-            <button className="button">Registrar Retirada</button>
           </div>
         </div>
+        <div className="modal-footer">
+          <button>Registrar Retirada</button>
+        </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default ModalAddItem;
