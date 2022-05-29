@@ -148,6 +148,7 @@ export default function Home() {
         show={modalAddItemVisibility}
         onClose={() => setModalAddItemVisibility(false)}
       />
+      <ModalDetalhes show={true} />
     </div>
   );
 }

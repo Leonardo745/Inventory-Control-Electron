@@ -62,11 +62,12 @@ const ModalAddItem = (props) => {
     <div className="modal" onClick={props.onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h4 className="modal-title">Detalhes do Produto</h4>
+          <h3 className="modal-title">Detalhes do Produto</h3>
         </div>
         <div className="modal-body">
-          <p>{produto.desc}</p>
+          <p>Forma bonita e legal</p>
         </div>
+        <div className="modal-footer"></div>
       </div>
     </div>
   );
