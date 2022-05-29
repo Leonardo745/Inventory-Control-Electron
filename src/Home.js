@@ -3,6 +3,7 @@ import "../styles/styles.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import ModalAddItem from"./component/ModalAddItem";
+import {useState} from 'react';
 
 function Home() {
   const produtos2 = [
@@ -68,6 +69,8 @@ function Home() {
     handleLoadData();
   }, []);
 
+ const [modalAddItemVisibility,setModalAddItemVisibility] = useState(false);
+
   return (
     <div className="container">
       <div className="header">
@@ -75,15 +78,8 @@ function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button
-            onClick={() => {
-              AddItem(produtos2);
-              handleLoadData();
-            }}
-          >
-            Adicionar Produto
-          </button>
-          <button onClick={() => handleLoadData()}>Adicionar Categoria</button>
+          <button onClick={()=>setModalAddItemVisibility(true)}>Adicionar Produto</button>
+          <button>Adicionar Categoria</button>
         </div>
       </div>
 
@@ -138,8 +134,7 @@ function Home() {
             ))
           : null}
       </div>
-      <ModalAddItem/>
+      <ModalAddItem show={modalAddItemVisibility} onClose={ ()=> setModalAddItemVisibility(false)}/>
     </div>
   );
 }
-export default Home;
