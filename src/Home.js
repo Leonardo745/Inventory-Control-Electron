@@ -3,6 +3,7 @@ import "../styles/styles.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import ModalAddItem from "./component/ModalAddItem";
+import ModalDetalhes from "./component/ModalDetalhes";
 
 export default function Home() {
   const produtos2 = [
