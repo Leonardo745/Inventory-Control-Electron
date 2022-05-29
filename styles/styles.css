@@ -59,9 +59,16 @@ button {
   max-height: 400px;
   overflow-y: scroll;
 }
+.cardsContainerAdd {
+  border-radius: 10px;
+  background-color: rgb(79, 79, 79);
+  width: 90%;
+  height: 350px;
+  max-height: 350px;
+  overflow-y: scroll;
+}
 .cards {
   margin-left: 10px;
-  margin-right: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
   height: 70px;

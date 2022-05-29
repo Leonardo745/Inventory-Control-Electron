@@ -2,6 +2,7 @@ import logo from "../public/images/logo.svg";
 import "../styles/styles.css";
 import React from 'react';
 import ModalAddItem from"./component/ModalAddItem";
+import {useState} from 'react';
 
 
 async function AddItem() {
@@ -9,7 +10,7 @@ async function AddItem() {
     console.log(result);
   }
 
-function Home() {
+export default function Home() {
   const categorys = [
     {
       name: "Todos",
@@ -73,6 +74,8 @@ function Home() {
     },
   ];
 
+ const [modalAddItemVisibility,setModalAddItemVisibility] = useState(false);
+
   return (
     <div className="container">
       <div className="header">
@@ -80,7 +83,7 @@ function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button onClick={AddItem}>Adicionar Produto</button>
+          <button onClick={()=>setModalAddItemVisibility(true)}>Adicionar Produto</button>
           <button>Adicionar Categoria</button>
         </div>
       </div>
@@ -119,10 +122,7 @@ function Home() {
           </div>
         ))}
       </div>
-      <ModalAddItem/>
+      <ModalAddItem show={modalAddItemVisibility} onClose={ ()=> setModalAddItemVisibility(false)}/>
     </div>
   );
 }
-
-
-export default Home;
