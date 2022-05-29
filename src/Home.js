@@ -2,10 +2,9 @@ import logo from "../public/images/logo.svg";
 import "../styles/styles.css";
 import React from "react";
 import { useState, useEffect } from "react";
-import ModalAddItem from"./component/ModalAddItem";
-import {useState} from 'react';
+import ModalAddItem from "./component/ModalAddItem";
 
-function Home() {
+export default function Home() {
   const produtos2 = [
     {
       nameCat: "Cozinha",
@@ -54,6 +53,7 @@ function Home() {
       ],
     },
   ];
+
   const [produtos, setProdutos] = useState(null);
 
   async function AddItem(args) {
@@ -69,7 +69,7 @@ function Home() {
     handleLoadData();
   }, []);
 
- const [modalAddItemVisibility,setModalAddItemVisibility] = useState(false);
+  const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
 
   return (
     <div className="container">
@@ -78,8 +78,10 @@ function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button onClick={()=>setModalAddItemVisibility(true)}>Adicionar Produto</button>
-          <button>Adicionar Categoria</button>
+          <button onClick={() => setModalAddItemVisibility(true)}>
+            Adicionar Produto
+          </button>
+          <button onClick={handleLoadData}>Adicionar Categoria</button>
         </div>
       </div>
 
@@ -134,7 +136,10 @@ function Home() {
             ))
           : null}
       </div>
-      <ModalAddItem show={modalAddItemVisibility} onClose={ ()=> setModalAddItemVisibility(false)}/>
+      <ModalAddItem
+        show={modalAddItemVisibility}
+        onClose={() => setModalAddItemVisibility(false)}
+      />
     </div>
   );
 }

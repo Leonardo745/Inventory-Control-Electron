@@ -13,17 +13,18 @@
 .modal-content {
   width: 650px;
   background-color: #fff;
+  border-radius: 20px;
 }
 
-.modal-header{
+.modal-header {
   padding: 10px;
   display: flex;
   justify-content: center;
 }
 .modal-footer {
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .modal-title {
@@ -37,5 +38,3 @@
   display: flex;
   justify-content: center;
 }
-
-
