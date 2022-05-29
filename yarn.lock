@@ -607,17 +607,17 @@
   "resolved" "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   "version" "2.0.4"
 
+"@malept/cross-spawn-promise@^1.0.0", "@malept/cross-spawn-promise@^2.0.0":
+  "integrity" "sha512-1DpKU0Z5ThltBwjNySMC14g0CkbyhCaz9FkhxqNsZI6uAPJXFS8cMXlBKo26FJ8ZuW6S9GCMcR9IO5k2X5/9Fg=="
+  "resolved" "https://registry.npmjs.org/@malept/cross-spawn-promise/-/cross-spawn-promise-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "cross-spawn" "^7.0.1"
+
 "@malept/cross-spawn-promise@^1.1.0":
   "integrity" "sha512-RTBGWL5FWQcg9orDOCcp4LvItNzUPcyEU9bwaeJX0rJ1IQxzucC48Y0/sQLp/g6t99IQgAlGIaesJS+gTn7tVQ=="
   "resolved" "https://registry.npmjs.org/@malept/cross-spawn-promise/-/cross-spawn-promise-1.1.1.tgz"
   "version" "1.1.1"
-  dependencies:
-    "cross-spawn" "^7.0.1"
-
-"@malept/cross-spawn-promise@^2.0.0":
-  "integrity" "sha512-1DpKU0Z5ThltBwjNySMC14g0CkbyhCaz9FkhxqNsZI6uAPJXFS8cMXlBKo26FJ8ZuW6S9GCMcR9IO5k2X5/9Fg=="
-  "resolved" "https://registry.npmjs.org/@malept/cross-spawn-promise/-/cross-spawn-promise-2.0.0.tgz"
-  "version" "2.0.0"
   dependencies:
     "cross-spawn" "^7.0.1"
 
@@ -2130,6 +2130,33 @@
   "resolved" "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   "version" "1.1.1"
 
+"electron-installer-debian@^3.0.0":
+  "integrity" "sha512-k6KChvx0Fw8XTlCqwwbBfh19yGQaKjGdbugokmr1IpzINOm4QFyACKMTHAYFHW5LCBUZQShZD96hwxUZ+8Kx+w=="
+  "resolved" "https://registry.npmjs.org/electron-installer-debian/-/electron-installer-debian-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "@malept/cross-spawn-promise" "^1.0.0"
+    "debug" "^4.1.1"
+    "electron-installer-common" "^0.10.2"
+    "fs-extra" "^9.0.0"
+    "get-folder-size" "^2.0.1"
+    "lodash" "^4.17.4"
+    "word-wrap" "^1.2.3"
+    "yargs" "^15.0.1"
+
+"electron-installer-redhat@^3.2.0":
+  "integrity" "sha512-hXIXB3uQXmXZy/v3MpbwWN4Of28ALpPt9ZyUDNEoSe0w7QZceL9IqI2K6Q6imiBJCLRC0hmT94WhlKj1RyGOWg=="
+  "resolved" "https://registry.npmjs.org/electron-installer-redhat/-/electron-installer-redhat-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@malept/cross-spawn-promise" "^1.0.0"
+    "debug" "^4.1.1"
+    "electron-installer-common" "^0.10.2"
+    "fs-extra" "^9.0.0"
+    "lodash" "^4.17.15"
+    "word-wrap" "^1.2.3"
+    "yargs" "^16.0.2"
+
 "electron-json-storage@^4.5.0":
   "integrity" "sha512-ML6Um4tZbJv938EbxvMJwzLA+v/wfWwEP+AXNum1zQF9RUFJ/SrRtIjGm9eFTFxURxn81r3ggdovuQikyF/m0Q=="
   "resolved" "https://registry.npmjs.org/electron-json-storage/-/electron-json-storage-4.5.0.tgz"
@@ -2647,7 +2674,7 @@
   "resolved" "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz"
   "version" "0.5.2"
 
-"fs-extra@^10.0.0":
+"fs-extra@^10.0.0", "fs-extra@^9.0.0":
   "integrity" "sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ=="
   "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-10.1.0.tgz"
   "version" "10.1.0"
@@ -2692,16 +2719,6 @@
     "jsonfile" "^4.0.0"
     "universalify" "^0.1.0"
 
-"fs-extra@^9.0.0":
-  "integrity" "sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ=="
-  "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-9.1.0.tgz"
-  "version" "9.1.0"
-  dependencies:
-    "at-least-node" "^1.0.0"
-    "graceful-fs" "^4.2.0"
-    "jsonfile" "^6.0.1"
-    "universalify" "^2.0.0"
-
 "fs-extra@^9.0.1":
   "integrity" "sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ=="
   "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-9.1.0.tgz"
@@ -2728,6 +2745,11 @@
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -3609,7 +3631,7 @@
   dependencies:
     "lodash._reinterpolate" "^3.0.0"
 
-"lodash@^4.0.1", "lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.20", "lodash@^4.17.21":
+"lodash@^4.0.1", "lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.20", "lodash@^4.17.21", "lodash@^4.17.4":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -5902,7 +5924,7 @@
   "resolved" "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.0.1.tgz"
   "version" "21.0.1"
 
-"yargs@^17.0.1":
+"yargs@^15.0.1", "yargs@^16.0.2", "yargs@^17.0.1":
   "integrity" "sha512-t6YAJcxDkNX7NFYiVtKvWUz8l+PaKTLiL63mJYWR2GnHq2gjEWISzsLp9wg3aY36dY1j+gfIEL3pIF+XlJJfbA=="
   "resolved" "https://registry.npmjs.org/yargs/-/yargs-17.5.1.tgz"
   "version" "17.5.1"

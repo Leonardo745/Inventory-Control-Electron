@@ -2,7 +2,8 @@ const { ipcRenderer, contextBridge } = require("electron");
 const path = require('path');
 
 contextBridge.exposeInMainWorld("Api", {
-    sayHello: (arg) => ipcRenderer.invoke("say-hello", arg)
+    saveData: (arg) => ipcRenderer.invoke("save-data", arg),
+    readData: () => ipcRenderer.invoke("read-data")
 });
 
 
