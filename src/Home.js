@@ -5,59 +5,25 @@ import { useState, useEffect } from "react";
 import ModalAddItem from "./component/ModalAddItem";
 
 export default function Home() {
-  const produtos2 = [
-    {
-      nameCat: "Cozinha",
-      itens: [
-        {
-          id: 0,
-          name: "Cadeira",
-          quant: 30,
-          value: 259.9,
-        },
-        {
-          id: 1,
-          name: "Mesa",
-          quant: 10,
-          value: 599.9,
-        },
-        {
-          id: 2,
-          name: "Lustre",
-          quant: 10,
-          value: 699.9,
-        },
-      ],
-    },
-    {
-      nameCat: "Sala",
-      itens: [
-        {
-          id: 3,
-          name: "Sofá",
-          quant: 30,
-          value: 259.9,
-        },
-        {
-          id: 4,
-          name: "Abajur",
-          quant: 10,
-          value: 599.9,
-        },
-        {
-          id: 5,
-          name: "Tapete",
-          quant: 10,
-          value: 699.9,
-        },
-      ],
-    },
-  ];
-
   const [produtos, setProdutos] = useState(null);
 
-  async function AddItem(args) {
-    let result = await Api.saveData(args);
+  async function AddItem(cat, args) {
+    var prod = produtos;
+    args.id = produtos.count + 1;
+
+    var map = produtos.category.map((item) => {
+      console.log(item);
+      if (item.nameCat == cat) {
+        item.itens.push(args);
+      }
+      return item;
+    });
+    console.log(map);
+    prod.category = map;
+    prod.count++;
+    setProdutos(prod);
+
+    let result = await Api.saveData(prod);
     console.log(result);
   }
   async function handleLoadData() {
@@ -78,15 +44,32 @@ export default function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button>Adicionar Produto</button>
-          <button onClick={handleLoadData}>Adicionar Categoria</button>
+          <button
+            onClick={() =>
+              AddItem("Sala", {
+                id: 0,
+                name: "Random",
+                quant: 100,
+                value: 699.9,
+              })
+            }
+          >
+            Adicionar Produto
+          </button>
+          <button
+            onClick={() => {
+              console.log(produtos);
+            }}
+          >
+            Adicionar Categoria
+          </button>
         </div>
       </div>
 
       <div className="categorys">
         <button>Todos</button>
         {produtos !== null
-          ? produtos.map((category, key) => (
+          ? produtos.category.map((category, key) => (
               <div key={key}>
                 <button>{category.nameCat}</button>
               </div>
@@ -96,7 +79,7 @@ export default function Home() {
 
       <div className="cardsContainer">
         {produtos !== null
-          ? produtos.map((produto, key1) => (
+          ? produtos.category.map((produto, key1) => (
               <div key={key1}>
                 <div className="categoryDivisor">
                   <span>{produto.nameCat}</span>
