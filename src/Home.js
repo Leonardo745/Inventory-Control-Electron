@@ -3,6 +3,7 @@ import "../styles/styles.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import ModalAddItem from "./component/ModalAddItem";
+import ReactToPrint from "react-to-print";
 
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
@@ -76,8 +77,13 @@ export default function Home() {
             ))
           : null}
       </div>
-
-      <div className="cardsContainer">
+      <ReactToPrint
+        content={() => document.getElementById("pdf")}
+        trigger={() => (
+          <button className="btn btn-primary">Print to PDF!</button>
+        )}
+      />
+      <div className="cardsContainer" id="pdf">
         {produtos !== null
           ? produtos.category.map((produto, key1) => (
               <div key={key1}>
