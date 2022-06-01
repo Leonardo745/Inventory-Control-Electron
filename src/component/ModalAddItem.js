@@ -1,58 +1,50 @@
-import React from "react";
-import "../../styles/modal.css";
-import "../../styles/styles.css";
-import logo from "../../public/images/logo.svg";
+import React from 'react';
+import '../../styles/modal.css';
+import '../../styles/styles.css';
+import logo from '../../public/images/logo.svg';
+import { useState, useEffect } from 'react';
 
-const produtos = [
-  {
-    name: "Teste",
-    quant: 10,
-    value: "200",
-  },
-  {
-    name: "Cadeira",
-    quant: 30,
-    value: "1000",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
-  {
-    name: "Mesa",
-    quant: 340,
-    value: "500",
-  },
+const initial = [
+  { id: 0, name: 'Cadeira', quant: 30, value: 259.9, selectedQuant: 0 },
+  { id: 1, name: 'Mesa', quant: 60, value: 259.9, selectedQuant: 0 },
+  { id: 2, name: 'Sofá', quant: 90, value: 259.9, selectedQuant: 0 },
 ];
 
-const ModalAddItem = (props) => {
+const ModalAddItem = props => {
+  const [produtos, setProdutos] = useState(initial);
+
+  async function increment(id) {
+    var produtosIncrement = produtos;
+    produtosIncrement.forEach(item => {
+      if (item.id == id) {
+        if (item.quant > item.selectedQuant) {
+          item.selectedQuant = item.selectedQuant + 1;
+        }
+      }
+    });
+    setProdutos(null);
+    setProdutos(Object.create(produtosIncrement));
+  }
+
+  async function decrement(id) {
+    var produtosDecrement = produtos;
+    produtosDecrement.forEach(item => {
+      if (item.id == id) {
+        if (item.selectedQuant > 0) {
+          item.selectedQuant = item.selectedQuant - 1;
+        }
+      }
+    });
+    setProdutos(null);
+    setProdutos(Object.create(produtosDecrement));
+  }
+
   if (!props.show) {
     return null;
   }
   return (
     <div className="modal" onClick={props.onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h4 className="modal-title">Lista de retirada</h4>
         </div>
@@ -77,13 +69,19 @@ const ModalAddItem = (props) => {
                   </div>
                 </div>
                 <div className="subtractContainer">
-                  <button>-</button>
+                  <button onClick={() => decrement(produto.id)}>-</button>
                 </div>
                 <div className="numberContainer">
-                  <span>3</span>
+                  <span>{produto.selectedQuant}</span>
                 </div>
                 <div className="addContainer">
-                  <button>+</button>
+                  <button
+                    onClick={() => {
+                      increment(produto.id);
+                    }}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             ))}

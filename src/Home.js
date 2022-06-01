@@ -10,6 +10,11 @@ import ReactToPrint from 'react-to-print';
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
 
+  const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
+  const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
+  const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
+  const [modalDescContent, setmodalDescContent] = useState(null);
+
   async function AddItem(cat, args) {
     var prod = produtos;
     args.id = produtos.count + 1;
@@ -36,7 +41,7 @@ export default function Home() {
       prod.category = map;
       prod.count++;
 
-      setProdutos(prod);
+      setProdutos(Object.create(prod));
       let result = await Api.saveData(prod);
       console.log('Retorno da Api: ' + result);
     } else {
@@ -73,11 +78,6 @@ export default function Home() {
     handleLoadData();
   }, []);
 
-  const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
-  const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
-  const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
-  const [modalDescContent, setmodalDescContent] = useState(null);
-
   return (
     <div className="container">
       <div className="header">
@@ -87,7 +87,7 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button
             onClick={() =>
-              AddItem('Quarto', {
+              AddItem('Cozinha', {
                 id: 0,
                 name: 'Random',
                 quant: 100,
