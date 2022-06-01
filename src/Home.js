@@ -13,14 +13,10 @@ export default function Home() {
   async function AddItem(cat, args) {
     var prod = produtos;
     args.id = produtos.count + 1;
+
     var catExist = false;
-    var map = produtos.category.map(item => {
-      console.log(item);
-
-   
-    produtos.category.forEach((item) => {
+    produtos.category.forEach(item => {
       //console.log(item);
-
       if (item.nameCat == cat) {
         catExist = true;
         console.log("Categoria '" + cat + "' encontrada");
@@ -28,7 +24,7 @@ export default function Home() {
     });
 
     if (catExist) {
-      var map = produtos.category.map((item) => {
+      var map = produtos.category.map(item => {
         //console.log(item);
         if (item.nameCat == cat) {
           item.itens.push(args);
@@ -42,7 +38,7 @@ export default function Home() {
 
       setProdutos(prod);
       let result = await Api.saveData(prod);
-      console.log("Retorno da Api: " + result);
+      console.log('Retorno da Api: ' + result);
     } else {
       console.log("Categoria '" + cat + "' não encontrada");
     }
@@ -50,7 +46,7 @@ export default function Home() {
 
   async function AddCategory(cat) {
     var catExist = false;
-    produtos.category.forEach((item) => {
+    produtos.category.forEach(item => {
       //console.log(item);
       if (item.nameCat == cat) {
         catExist = true;
@@ -64,7 +60,7 @@ export default function Home() {
       console.log("Categoria '" + cat + "' Adicionada");
       setProdutos(prod);
       let result = await Api.saveData(prod);
-      console.log("Retorno da Api: " + result);
+      console.log('Retorno da Api: ' + result);
     }
   }
 
@@ -91,8 +87,7 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button
             onClick={() =>
-
-              AddItem("Quarto", {
+              AddItem('Quarto', {
                 id: 0,
                 name: 'Random',
                 quant: 100,
@@ -160,19 +155,10 @@ export default function Home() {
       </div>
 
       <div className="retiradaBtnContainer">
-        <button className="retiradaBtn" onClick={() => setModalAddItemVisibility(true)}>
         <div className="printContainer">
-          <ReactToPrint
-            content={() => document.getElementById("pdf")}
-            trigger={() => (
-              <button className="btn-primary">Print to PDF!</button>
-            )}
-          />
+          <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Print to PDF!</button>} />
         </div>
-        <button
-          className="retiradaBtn"
-          onClick={() => setModalAddItemVisibility(true)}
-        >
+        <button className="retiradaBtn" onClick={() => setModalAddItemVisibility(true)}>
           Registrar Retirada
         </button>
       </div>
