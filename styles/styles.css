@@ -6,17 +6,25 @@ button {
   background-color: lightgrey;
 }
 
+buttonDesc {
+  padding: 8px;
+  margin-inline: 10px;
+  border-radius: 50px;
+  border-width: 0;
+  background-color: #bfbfbf;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  background-color: lightgrey;
   height: 100vh;
 }
 
 .header {
   border-radius: 60px;
-  background-color: grey;
+  background-color: #bfbfbf;
   display: flex;
   justify-content: space-around;
   height: 50px;
@@ -44,7 +52,7 @@ button {
 
 .categorys {
   border-radius: 60px;
-  background-color: lightgrey;
+  background-color: #bfbfbf;
   display: flex;
   height: 40px;
   width: 80%;
@@ -55,7 +63,7 @@ button {
 
 .cardsContainer {
   border-radius: 10px;
-  background-color: rgb(79, 79, 79);
+  background-color: #bfbfbf;
   width: 90%;
   height: 400px;
   max-height: 400px;
@@ -93,7 +101,7 @@ button {
   height: 70px;
   width: 95%;
   border-radius: 20px;
-  background-color: rgb(142, 142, 142);
+  background-color: rgb(205 205 205);
   display: flex;
   flex-direction: row;
 }
@@ -133,13 +141,18 @@ button {
 .retiradaBtnContainer {
   width: 90%;
   display: flex;
+  background-color: #bfbfbf;
+  border-radius: 50px;
   justify-content: flex-end;
   margin-top: 30px;
 }
 
 .retiradaBtn {
   width: 30%;
- 
+}
+
+.novoItemBtn {
+  width: 30%;
 }
 
 .CategoriaBtnContainer {
@@ -152,7 +165,7 @@ button {
 .CategoriaBtn {
   width: 30%;
 }
-.printContainer{
+.printContainer {
   width: 90%;
   display: flex;
   justify-content: flex-start;
