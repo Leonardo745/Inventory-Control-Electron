@@ -13,22 +13,61 @@ export default function Home() {
   async function AddItem(cat, args) {
     var prod = produtos;
     args.id = produtos.count + 1;
-
+    var catExist = false;
     var map = produtos.category.map(item => {
       console.log(item);
-      if (item.nameCat == cat) {
-        item.itens.push(args);
-      }
-      return item;
-    });
-    console.log(map);
-    prod.category = map;
-    prod.count++;
-    setProdutos(prod);
 
-    let result = await Api.saveData(prod);
-    console.log(result);
+   
+    produtos.category.forEach((item) => {
+      //console.log(item);
+
+      if (item.nameCat == cat) {
+        catExist = true;
+        console.log("Categoria '" + cat + "' encontrada");
+      }
+    });
+
+    if (catExist) {
+      var map = produtos.category.map((item) => {
+        //console.log(item);
+        if (item.nameCat == cat) {
+          item.itens.push(args);
+          console.log("Produto '" + args.name + "' Adicionado");
+        }
+        return item;
+      });
+      //console.log(map);
+      prod.category = map;
+      prod.count++;
+
+      setProdutos(prod);
+      let result = await Api.saveData(prod);
+      console.log("Retorno da Api: " + result);
+    } else {
+      console.log("Categoria '" + cat + "' não encontrada");
+    }
   }
+
+  async function AddCategory(cat) {
+    var catExist = false;
+    produtos.category.forEach((item) => {
+      //console.log(item);
+      if (item.nameCat == cat) {
+        catExist = true;
+        console.log("Categoria '" + cat + "' já existe!");
+      }
+    });
+    if (!catExist) {
+      var prod = produtos;
+      var newCat = { nameCat: cat, itens: [] };
+      prod.category.push(newCat);
+      console.log("Categoria '" + cat + "' Adicionada");
+      setProdutos(prod);
+      let result = await Api.saveData(prod);
+      console.log("Retorno da Api: " + result);
+    }
+  }
+
   async function handleLoadData() {
     const result = await Api.readData();
     setProdutos(result === undefined ? null : result);
@@ -52,7 +91,8 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button
             onClick={() =>
-              AddItem('Sala', {
+
+              AddItem("Quarto", {
                 id: 0,
                 name: 'Random',
                 quant: 100,
