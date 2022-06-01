@@ -83,6 +83,7 @@
     "electron-json-storage": "^4.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-to-print": "^2.14.7"
   }
 }
