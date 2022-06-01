@@ -77,12 +77,7 @@ export default function Home() {
             ))
           : null}
       </div>
-      <ReactToPrint
-        content={() => document.getElementById("pdf")}
-        trigger={() => (
-          <button className="btn btn-primary">Print to PDF!</button>
-        )}
-      />
+
       <div className="cardsContainer" id="pdf">
         {produtos !== null
           ? produtos.category.map((produto, key1) => (
@@ -123,7 +118,16 @@ export default function Home() {
             ))
           : null}
       </div>
+
       <div className="retiradaBtnContainer">
+        <div className="printContainer">
+          <ReactToPrint
+            content={() => document.getElementById("pdf")}
+            trigger={() => (
+              <button className="btn-primary">Print to PDF!</button>
+            )}
+          />
+        </div>
         <button
           className="retiradaBtn"
           onClick={() => setModalAddItemVisibility(true)}

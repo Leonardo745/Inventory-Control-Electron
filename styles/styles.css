@@ -133,10 +133,16 @@ button {
 .retiradaBtnContainer {
   width: 90%;
   display: flex;
-  justify-content: flex-end;
   margin-top: 30px;
 }
 
 .retiradaBtn {
   width: 30%;
+ 
+}
+
+.printContainer{
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
 }
