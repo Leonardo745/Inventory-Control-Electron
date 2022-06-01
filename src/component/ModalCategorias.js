@@ -56,12 +56,17 @@ const ModalCategoria = (props) => {
         <div className="modal-header">
           <h4 className="modal-title">Nova Categoria</h4>
         </div>
-        <div className="modalscr-body">
+        <div className="modal-body">
           <p>Nome:</p>
-          <input className="searchBar" type="text" id="fname" name="fname" />
+          <input
+            className="searchBar modal-searchbar"
+            type="text"
+            id="fname"
+            name="fname"
+          />
         </div>
         <div className="modal-footer">
-          <button>Registrar Retirada</button>
+          <button>Confirmar</button>
         </div>
       </div>
     </div>

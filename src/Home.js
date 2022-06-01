@@ -61,11 +61,7 @@ export default function Home() {
           >
             Adicionar Produto
           </button>
-          <button
-            onClick={() => {
-              console.log(produtos);
-            }}
-          >
+          <button onClick={() => setModalCategoriaVisibility(true)}>
             Adicionar Categoria
           </button>
         </div>
@@ -141,15 +137,6 @@ export default function Home() {
         onClose={() => setModalAddItemVisibility(false)}
       />
       <ModalDetalhes show={false} />
-
-      <div className="CategoriaBtnContainer">
-        <button
-          className="CategoriaBtn"
-          onClick={() => setModalCategoriaVisibility(true)}
-        >
-          Cria categoria
-        </button>
-      </div>
 
       <ModalCategoria
         show={modalCategoriaVisibility}
