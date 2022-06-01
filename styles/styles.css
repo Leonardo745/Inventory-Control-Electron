@@ -6,11 +6,7 @@ button {
   background-color: lightgrey;
 }
 
-buttonDesc {
-  padding: 8px;
-  margin-inline: 10px;
-  border-radius: 50px;
-  border-width: 0;
+.buttonDesc {
   background-color: #bfbfbf;
 }
 

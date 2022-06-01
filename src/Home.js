@@ -140,14 +140,15 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="descripContainer">
-                      <buttonDesc
+                      <button
+                        className="buttonDesc"
                         onClick={() => {
                           setDescricaoVisibility(true);
                           setmodalDescContent(iten);
                         }}
                       >
                         Descrição
-                      </buttonDesc>
+                      </button>
                     </div>
                   </div>
                 ))}
