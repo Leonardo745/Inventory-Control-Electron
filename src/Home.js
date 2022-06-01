@@ -4,6 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ModalAddItem from "./component/ModalAddItem";
 import ModalDetalhes from "./component/ModalDetalhes";
+import ModalCategoria from "./component/ModalCategorias";
 
 export default function Home() {
   const produtos2 = [
@@ -71,6 +72,8 @@ export default function Home() {
   }, []);
 
   const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
+  const [modalCategoriaVisibility, setModalCategoriaVisibility] =
+    useState(false);
 
   return (
     <div className="container">
@@ -148,7 +151,21 @@ export default function Home() {
         show={modalAddItemVisibility}
         onClose={() => setModalAddItemVisibility(false)}
       />
-      <ModalDetalhes show={true} />
+      <ModalDetalhes show={false} />
+
+      <div className="CategoriaBtnContainer">
+        <button
+          className="CategoriaBtn"
+          onClick={() => setModalCategoriaVisibility(true)}
+        >
+          Cria categoria
+        </button>
+      </div>
+
+      <ModalCategoria
+        show={modalCategoriaVisibility}
+        onClose={() => setModalCategoriaVisibility(false)}
+      />
     </div>
   );
 }

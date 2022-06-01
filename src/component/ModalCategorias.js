@@ -8,53 +8,45 @@ const produtos = [
     name: "Teste",
     quant: 10,
     value: "200",
-    desc: "Descricao teste",
   },
   {
     name: "Cadeira",
     quant: 30,
     value: "1000",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
   {
     name: "Mesa",
     quant: 340,
     value: "500",
-    desc: "Descricao teste",
   },
 ];
 
-const ModalDetalhe = (props) => {
+const ModalCategoria = (props) => {
   if (!props.show) {
     return null;
   }
@@ -62,15 +54,18 @@ const ModalDetalhe = (props) => {
     <div className="modal" onClick={props.onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h3 className="modal-title">Detalhes do Produto</h3>
+          <h4 className="modal-title">Nova Categoria</h4>
         </div>
-        <div className="modal-body">
-          <p>Forma bonita e legal</p>
+        <div className="modalscr-body">
+          <p>Nome:</p>
+          <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
-        <div className="modal-footer"></div>
+        <div className="modal-footer">
+          <button>Registrar Retirada</button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ModalDetalhe;
+export default ModalCategoria;
