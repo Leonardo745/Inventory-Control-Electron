@@ -1,11 +1,11 @@
-import logo from "../public/images/logo.svg";
-import "../styles/styles.css";
-import React from "react";
-import { useState, useEffect } from "react";
-import ModalAddItem from "./component/ModalAddItem";
-import ModalDetalhes from "./component/ModalDetalhes";
-import ModalCategoria from "./component/ModalCategorias";
-import ReactToPrint from "react-to-print";
+import logo from '../public/images/logo.svg';
+import '../styles/styles.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import ModalAddItem from './component/ModalAddItem';
+import ModalDetalhes from './component/ModalDetalhes';
+import ModalCategoria from './component/ModalCategorias';
+import ReactToPrint from 'react-to-print';
 
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
@@ -14,7 +14,7 @@ export default function Home() {
     var prod = produtos;
     args.id = produtos.count + 1;
 
-    var map = produtos.category.map((item) => {
+    var map = produtos.category.map(item => {
       console.log(item);
       if (item.nameCat == cat) {
         item.itens.push(args);
@@ -39,8 +39,9 @@ export default function Home() {
   }, []);
 
   const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
-  const [modalCategoriaVisibility, setModalCategoriaVisibility] =
-    useState(false);
+  const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
+  const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
+  const [modalDescContent, setmodalDescContent] = useState(null);
 
   return (
     <div className="container">
@@ -51,9 +52,9 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button
             onClick={() =>
-              AddItem("Sala", {
+              AddItem('Sala', {
                 id: 0,
-                name: "Random",
+                name: 'Random',
                 quant: 100,
                 value: 699.9,
               })
@@ -61,9 +62,7 @@ export default function Home() {
           >
             Adicionar Produto
           </button>
-          <button onClick={() => setModalCategoriaVisibility(true)}>
-            Adicionar Categoria
-          </button>
+          <button onClick={() => setModalCategoriaVisibility(true)}>Adicionar Categoria</button>
         </div>
       </div>
 
@@ -77,12 +76,7 @@ export default function Home() {
             ))
           : null}
       </div>
-      <ReactToPrint
-        content={() => document.getElementById("pdf")}
-        trigger={() => (
-          <button className="btn btn-primary">Print to PDF!</button>
-        )}
-      />
+      <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn btn-primary">Print to PDF!</button>} />
       <div className="cardsContainer" id="pdf">
         {produtos !== null
           ? produtos.category.map((produto, key1) => (
@@ -93,12 +87,7 @@ export default function Home() {
                 {produto.itens.map((iten, key2) => (
                   <div key={key2} className="cards">
                     <div className="imgInptContainer">
-                      <input
-                        type="checkbox"
-                        id="test"
-                        name="test"
-                        value="test"
-                      />
+                      <input type="checkbox" id="test" name="test" value="test" />
                       <img className="productImg" src={logo} alt="logo" />
                     </div>
                     <div className="nomeContainer">
@@ -115,7 +104,14 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="descripContainer">
-                      <button>Descrição</button>
+                      <button
+                        onClick={() => {
+                          setDescricaoVisibility(true);
+                          setmodalDescContent(iten);
+                        }}
+                      >
+                        Descrição
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -124,24 +120,16 @@ export default function Home() {
           : null}
       </div>
       <div className="retiradaBtnContainer">
-        <button
-          className="retiradaBtn"
-          onClick={() => setModalAddItemVisibility(true)}
-        >
+        <button className="retiradaBtn" onClick={() => setModalAddItemVisibility(true)}>
           Registrar Retirada
         </button>
       </div>
 
-      <ModalAddItem
-        show={modalAddItemVisibility}
-        onClose={() => setModalAddItemVisibility(false)}
-      />
-      <ModalDetalhes show={false} />
+      <ModalAddItem show={modalAddItemVisibility} onClose={() => setModalAddItemVisibility(false)} />
 
-      <ModalCategoria
-        show={modalCategoriaVisibility}
-        onClose={() => setModalCategoriaVisibility(false)}
-      />
+      <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
+
+      <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} />
     </div>
   );
 }

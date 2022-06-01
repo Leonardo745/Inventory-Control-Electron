@@ -39,6 +39,16 @@
   justify-content: center;
 }
 
+.modal-body-desc {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
 .modal-searchbar {
   background-color: grey;
 }
