@@ -139,4 +139,11 @@ button {
 
 .retiradaBtn {
   width: 30%;
+ 
+}
+
+.printContainer{
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
 }
