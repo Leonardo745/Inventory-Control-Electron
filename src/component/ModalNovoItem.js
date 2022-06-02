@@ -16,12 +16,14 @@ const ModalNovoItem = props => {
         <div className="modal-body-Novoitem">
           <p>Nome:</p>
           <input className="modal-searchbar-NovoItem" type="text" id="fname" name="fname" />
+          <p>Categoria:</p>
+          <input className="modal-searchbar-NovoItem" type="text" id="fname1" name="fname" />
           <p>Descricao:</p>
-          <input className="modal-searchbar-NovoItem" type="text" id="fname" name="fname" />
+          <input className="modal-searchbar-NovoItem" type="text" id="fname2" name="fname" />
           <p>Preco:</p>
-          <input className="modal-searchbar-NovoItem" type="text" id="fname" name="fname" />
+          <input className="modal-searchbar-NovoItem" type="text" id="fname3" name="fname" />
           <p>Quantidade em estoque inicial:</p>
-          <input className="modal-searchbar-NovoItem" type="text" id="fname" name="fname" />
+          <input className="modal-searchbar-NovoItem" type="text" id="fname4" name="fname" />
         </div>
         <div className="modal-footer">
           <button>Confirmar</button>
