@@ -11,7 +11,7 @@ const initial = [
 ];
 
 const ModalAddItem = props => {
-  const [produtos, setProdutos] = useState(initial);
+  const [produtos, setProdutos] = useState([]);
 
   async function increment(id) {
     var produtosIncrement = produtos;
@@ -22,7 +22,6 @@ const ModalAddItem = props => {
         }
       }
     });
-    setProdutos(null);
     setProdutos(Object.create(produtosIncrement));
   }
 
@@ -38,6 +37,10 @@ const ModalAddItem = props => {
     setProdutos(null);
     setProdutos(Object.create(produtosDecrement));
   }
+
+  useEffect(() => {
+    setProdutos(props.itens);
+  }, [props.itens]);
 
   if (!props.show) {
     return null;
@@ -57,7 +60,7 @@ const ModalAddItem = props => {
                 </div>
                 <div className="nomeContainer">
                   <div>
-                    <span className="teste">{produto.name}</span>
+                    <span>{produto.name}</span>
                   </div>
                   <div>
                     <span>Quantidade em Estoque: </span>

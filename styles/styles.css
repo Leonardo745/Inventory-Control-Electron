@@ -139,7 +139,6 @@ button {
 
 .retiradaBtn {
   width: 30%;
- 
 }
 
 .CategoriaBtnContainer {
@@ -152,7 +151,7 @@ button {
 .CategoriaBtn {
   width: 30%;
 }
-.printContainer{
+.printContainer {
   width: 90%;
   display: flex;
   justify-content: flex-start;

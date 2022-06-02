@@ -14,6 +14,7 @@ export default function Home() {
   const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
   const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
   const [modalDescContent, setmodalDescContent] = useState(null);
+  const [selectedItens, setSelectedItens] = useState([]);
 
   async function AddItem(cat, args) {
     var prod = produtos;
@@ -69,9 +70,36 @@ export default function Home() {
     }
   }
 
+  async function prepareSelected(id, value) {
+    let prod = produtos;
+    var localSelectedItens = selectedItens;
+    if (value) {
+      prod.category.forEach((cats, key) => {
+        cats.itens.forEach(iten => {
+          if (iten.id == id) {
+            if (value) {
+              localSelectedItens.push(iten);
+            }
+          }
+        });
+      });
+    } else {
+      localSelectedItens = localSelectedItens.filter(ele => {
+        return ele.id != id;
+      });
+    }
+
+    console.log(localSelectedItens);
+    setSelectedItens(localSelectedItens);
+  }
+
   async function handleLoadData() {
     const result = await Api.readData();
-    setProdutos(result === undefined ? null : result);
+    if (Object.keys(result).length === 0) {
+      setProdutos(null);
+    } else {
+      setProdutos(result);
+    }
   }
 
   useEffect(() => {
@@ -92,6 +120,7 @@ export default function Home() {
                 name: 'Random',
                 quant: 100,
                 value: 699.9,
+                selectedQuant: 0,
               })
             }
           >
@@ -103,7 +132,7 @@ export default function Home() {
 
       <div className="categorys">
         <button>Todos</button>
-        {produtos !== null
+        {produtos != null
           ? produtos.category.map((category, key) => (
               <div key={key}>
                 <button>{category.nameCat}</button>
@@ -112,7 +141,7 @@ export default function Home() {
           : null}
       </div>
       <div className="cardsContainer" id="pdf">
-        {produtos !== null
+        {produtos != null
           ? produtos.category.map((produto, key1) => (
               <div key={key1}>
                 <div className="categoryDivisor">
@@ -121,7 +150,12 @@ export default function Home() {
                 {produto.itens.map((iten, key2) => (
                   <div key={key2} className="cards">
                     <div className="imgInptContainer">
-                      <input type="checkbox" id="test" name="test" value="test" />
+                      <input
+                        type="checkbox"
+                        onChange={value => {
+                          prepareSelected(iten.id, value.target.checked);
+                        }}
+                      />
                       <img className="productImg" src={logo} alt="logo" />
                     </div>
                     <div className="nomeContainer">
@@ -163,7 +197,7 @@ export default function Home() {
         </button>
       </div>
 
-      <ModalAddItem show={modalAddItemVisibility} onClose={() => setModalAddItemVisibility(false)} />
+      <ModalAddItem show={modalAddItemVisibility} onClose={() => setModalAddItemVisibility(false)} itens={selectedItens} />
 
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
 
