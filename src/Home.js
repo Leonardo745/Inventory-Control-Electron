@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import ModalAddItem from './component/ModalAddItem';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
+import ModalNovoItem from './component/ModalNovoItem';
 import ReactToPrint from 'react-to-print';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
   const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
   const [modalDescContent, setmodalDescContent] = useState(null);
+  const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
 
   async function AddItem(cat, args) {
@@ -173,6 +175,7 @@ export default function Home() {
                     </div>
                     <div className="descripContainer">
                       <button
+                        className="buttonDesc"
                         onClick={() => {
                           setDescricaoVisibility(true);
                           setmodalDescContent(iten);
@@ -188,14 +191,19 @@ export default function Home() {
           : null}
       </div>
 
-      <div className="retiradaBtnContainer">
+      <div className="retiradaBtnContainer categorys">
         <div className="printContainer">
           <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Print to PDF!</button>} />
         </div>
         <button className="retiradaBtn" onClick={() => setModalAddItemVisibility(true)}>
           Registrar Retirada
         </button>
+        <button className="novoItemBtn" onClick={() => setmodalNovoItemVisibility(true)}>
+          Novo Item
+        </button>
       </div>
+
+      <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} />
 
       <ModalAddItem show={modalAddItemVisibility} onClose={() => setModalAddItemVisibility(false)} itens={selectedItens} />
 
