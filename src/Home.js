@@ -8,6 +8,39 @@ import ModalCategoria from './component/ModalCategorias';
 import ModalNovoItem from './component/ModalNovoItem';
 import ReactToPrint from 'react-to-print';
 
+export async function AddItem(cat, args) {
+  var prod = produtos;
+  args.id = produtos.count + 1;
+
+  var catExist = false;
+  produtos.category.forEach(item => {
+    //console.log(item);
+    if (item.nameCat == cat) {
+      catExist = true;
+      console.log("Categoria '" + cat + "' encontrada");
+    }
+  });
+
+  if (catExist) {
+    var map = produtos.category.map(item => {
+      //console.log(item);
+      if (item.nameCat == cat) {
+        item.itens.push(args);
+        console.log("Produto '" + args.name + "' Adicionado");
+      }
+      return item;
+    });
+    //console.log(map);
+    prod.category = map;
+    prod.count++;
+
+    setProdutos(Object.create(prod));
+    let result = await Api.saveData(prod);
+    console.log('Retorno da Api: ' + result);
+  } else {
+    console.log("Categoria '" + cat + "' não encontrada");
+  }
+}
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
 
@@ -17,40 +50,6 @@ export default function Home() {
   const [modalDescContent, setmodalDescContent] = useState(null);
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
-
-  async function AddItem(cat, args) {
-    var prod = produtos;
-    args.id = produtos.count + 1;
-
-    var catExist = false;
-    produtos.category.forEach(item => {
-      //console.log(item);
-      if (item.nameCat == cat) {
-        catExist = true;
-        console.log("Categoria '" + cat + "' encontrada");
-      }
-    });
-
-    if (catExist) {
-      var map = produtos.category.map(item => {
-        //console.log(item);
-        if (item.nameCat == cat) {
-          item.itens.push(args);
-          console.log("Produto '" + args.name + "' Adicionado");
-        }
-        return item;
-      });
-      //console.log(map);
-      prod.category = map;
-      prod.count++;
-
-      setProdutos(Object.create(prod));
-      let result = await Api.saveData(prod);
-      console.log('Retorno da Api: ' + result);
-    } else {
-      console.log("Categoria '" + cat + "' não encontrada");
-    }
-  }
 
   async function AddCategory(cat) {
     var catExist = false;
