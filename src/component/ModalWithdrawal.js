@@ -76,7 +76,9 @@ const ModalAddItem = props => {
                     onClick={() => {
                       increment(produto.id);
                     }}
-                  ></button>
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             ))}

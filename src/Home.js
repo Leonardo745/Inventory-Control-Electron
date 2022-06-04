@@ -18,26 +18,6 @@ export default function Home() {
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
 
-  async function AddCategory(cat) {
-    var catExist = false;
-    produtos.category.forEach(item => {
-      //console.log(item);
-      if (item.nameCat == cat) {
-        catExist = true;
-        console.log("Categoria '" + cat + "' já existe!");
-      }
-    });
-    if (!catExist) {
-      var prod = produtos;
-      var newCat = { nameCat: cat, itens: [] };
-      prod.category.push(newCat);
-      console.log("Categoria '" + cat + "' Adicionada");
-      setProdutos(prod);
-      let result = await Api.saveData(prod);
-      console.log('Retorno da Api: ' + result);
-    }
-  }
-
   async function prepareSelected(id, value) {
     let prod = produtos;
     var localSelectedItens = selectedItens;
@@ -154,13 +134,13 @@ export default function Home() {
         </button>
       </div>
 
-      <ModalNovoItem show={modalNovoItemVisibility} produtos={produtos} onClose={() => setmodalNovoItemVisibility(false)} />
+      <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} produtos={produtos} />
 
       <ModalWithdrawal show={modalWithdrawalVisibility} onClose={() => setModalWithdrawalVisibility(false)} itens={selectedItens} />
 
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
 
-      <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} />
+      <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} produtos={produtos} />
     </div>
   );
 }
