@@ -84,7 +84,7 @@ const ModalNovoItem = props => {
     <div className="modal" onClick={closeModal}>
       {errorVisibility ? (
         <div className="error">
-          <span className="error-text">Categoria {cat} não encontrada</span>
+          <span className="error-text">Categoria "{cat}" não encontrada</span>
         </div>
       ) : null}
 
@@ -97,7 +97,7 @@ const ModalNovoItem = props => {
           <input maxLength={30} className="modal-searchbar-NovoItem" type="text" onChange={e => setNome(e.target.value)} />
           <p>Categoria:</p>
           <input
-            maxLength={18}
+            maxLength={17}
             className="modal-searchbar-NovoItem"
             type="text"
             onChange={e => {
@@ -107,7 +107,7 @@ const ModalNovoItem = props => {
           />
           <p>Descricao:</p>
           <input className="modal-searchbar-NovoItem" type="text" onChange={e => setDesc(e.target.value)} />
-          <p>Preco:</p>
+          <p>Preço:</p>
           <input className="modal-searchbar-NovoItem" type="number" onChange={e => setPreco(Number(e.target.value))} />
           <p>Quantidade em estoque inicial:</p>
           <input className="modal-searchbar-NovoItem" type="number" onChange={e => setQuant(Number(e.target.value))} />
