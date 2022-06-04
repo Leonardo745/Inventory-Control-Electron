@@ -4,12 +4,6 @@ import '../../styles/styles.css';
 import logo from '../../public/images/logo.svg';
 import { useState, useEffect } from 'react';
 
-const initial = [
-  { id: 0, name: 'Cadeira', quant: 30, value: 259.9, selectedQuant: 0 },
-  { id: 1, name: 'Mesa', quant: 60, value: 259.9, selectedQuant: 0 },
-  { id: 2, name: 'Sofá', quant: 90, value: 259.9, selectedQuant: 0 },
-];
-
 const ModalAddItem = props => {
   const [produtos, setProdutos] = useState([]);
 

@@ -18,7 +18,7 @@ const ModalDetalhe = props => {
             <span className="modal-name-txt">{props.descricao.name}</span>
           </div>
           <div>
-            <span className="modal-desc-txt">{props.descricao.descricao}</span>
+            <span className="modal-desc-txt">{props.descricao.description}</span>
           </div>
         </div>
         <div className="modal-footer"></div>

@@ -2,7 +2,7 @@ import logo from '../public/images/logo.svg';
 import '../styles/styles.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import ModalAddItem from './component/ModalAddItem';
+import ModalWithdrawal from './component/ModalWithdrawal';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
 import ModalNovoItem from './component/ModalNovoItem';
@@ -11,46 +11,12 @@ import ReactToPrint from 'react-to-print';
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
 
-  const [modalAddItemVisibility, setModalAddItemVisibility] = useState(false);
+  const [modalWithdrawalVisibility, setModalWithdrawalVisibility] = useState(false);
   const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
   const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
   const [modalDescContent, setmodalDescContent] = useState(null);
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
-
-  async function AddItem(cat, args) {
-    var prod = produtos;
-    args.id = produtos.count + 1;
-
-    var catExist = false;
-    produtos.category.forEach(item => {
-      //console.log(item);
-      if (item.nameCat == cat) {
-        catExist = true;
-        console.log("Categoria '" + cat + "' encontrada");
-      }
-    });
-
-    if (catExist) {
-      var map = produtos.category.map(item => {
-        //console.log(item);
-        if (item.nameCat == cat) {
-          item.itens.push(args);
-          console.log("Produto '" + args.name + "' Adicionado");
-        }
-        return item;
-      });
-      //console.log(map);
-      prod.category = map;
-      prod.count++;
-
-      setProdutos(Object.create(prod));
-      let result = await Api.saveData(prod);
-      console.log('Retorno da Api: ' + result);
-    } else {
-      console.log("Categoria '" + cat + "' não encontrada");
-    }
-  }
 
   async function AddCategory(cat) {
     var catExist = false;
@@ -115,19 +81,7 @@ export default function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button
-            onClick={() =>
-              AddItem('Cozinha', {
-                id: 0,
-                name: 'Random',
-                quant: 100,
-                value: 699.9,
-                selectedQuant: 0,
-              })
-            }
-          >
-            Adicionar Produto
-          </button>
+          <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
           <button onClick={() => setModalCategoriaVisibility(true)}>Adicionar Categoria</button>
         </div>
       </div>
@@ -170,7 +124,7 @@ export default function Home() {
                       </div>
                       <div>
                         <span>Preço: </span>
-                        <span>{iten.value}</span>
+                        <span>R$ {iten.value}</span>
                       </div>
                     </div>
                     <div className="descripContainer">
@@ -195,17 +149,14 @@ export default function Home() {
         <div className="printContainer">
           <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Print to PDF!</button>} />
         </div>
-        <button className="retiradaBtn" onClick={() => setModalAddItemVisibility(true)}>
+        <button className="retiradaBtn" onClick={() => setModalWithdrawalVisibility(true)}>
           Registrar Retirada
-        </button>
-        <button className="novoItemBtn" onClick={() => setmodalNovoItemVisibility(true)}>
-          Novo Item
         </button>
       </div>
 
-      <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} />
+      <ModalNovoItem show={modalNovoItemVisibility} produtos={produtos} onClose={() => setmodalNovoItemVisibility(false)} />
 
-      <ModalAddItem show={modalAddItemVisibility} onClose={() => setModalAddItemVisibility(false)} itens={selectedItens} />
+      <ModalWithdrawal show={modalWithdrawalVisibility} onClose={() => setModalWithdrawalVisibility(false)} itens={selectedItens} />
 
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
 
