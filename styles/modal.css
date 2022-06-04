@@ -4,10 +4,11 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .modal-content {
@@ -33,16 +34,12 @@
 
 .modal-body {
   padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: center;
 }
 
 .modal-body-Novoitem {
   padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
   display: flow-root;
   justify-content: center;
   align-items: center;
@@ -50,8 +47,6 @@
 
 .modal-body-desc {
   padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,4 +65,25 @@
   border-width: 0;
   padding: 8px;
   margin-inline: 10px;
+}
+
+.error {
+  position: fixed;
+  left: 50%;
+  margin-left: -225px;
+  top: 15px;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(243, 104, 104);
+  border-radius: 60px;
+  margin-bottom: 30px;
+  width: 450px;
+  height: 35px;
+}
+
+.error-text {
+  color: #fff;
+  padding: 8px;
 }
