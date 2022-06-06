@@ -37,7 +37,6 @@ export default function Home() {
       });
     }
 
-    console.log(localSelectedItens);
     setSelectedItens(localSelectedItens);
   }
 
@@ -48,6 +47,11 @@ export default function Home() {
     } else {
       setProdutos(result);
     }
+  }
+
+  async function handleSaveData() {
+    const result = await Api.saveData(produtos);
+    console.log('Retorno da Api: ' + result);
   }
 
   useEffect(() => {
@@ -136,7 +140,14 @@ export default function Home() {
 
       <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} produtos={produtos} />
 
-      <ModalWithdrawal show={modalWithdrawalVisibility} onClose={() => setModalWithdrawalVisibility(false)} itens={selectedItens} />
+      <ModalWithdrawal
+        show={modalWithdrawalVisibility}
+        onClose={() => {
+          setModalWithdrawalVisibility(false);
+          handleSaveData();
+        }}
+        itens={selectedItens}
+      />
 
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
 

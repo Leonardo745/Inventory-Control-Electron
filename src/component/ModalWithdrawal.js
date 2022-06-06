@@ -4,10 +4,10 @@ import '../../styles/styles.css';
 import logo from '../../public/images/logo.svg';
 import { useState, useEffect } from 'react';
 
-const ModalAddItem = props => {
+const ModalWithdrawal = props => {
   const [produtos, setProdutos] = useState([]);
 
-  async function increment(id) {
+  function increment(id) {
     var produtosIncrement = produtos;
     produtosIncrement.forEach(item => {
       if (item.id == id) {
@@ -19,7 +19,7 @@ const ModalAddItem = props => {
     setProdutos(Object.create(produtosIncrement));
   }
 
-  async function decrement(id) {
+  function decrement(id) {
     var produtosDecrement = produtos;
     produtosDecrement.forEach(item => {
       if (item.id == id) {
@@ -28,8 +28,23 @@ const ModalAddItem = props => {
         }
       }
     });
-    setProdutos(null);
     setProdutos(Object.create(produtosDecrement));
+  }
+
+  async function withdrawal() {
+    var prod = produtos;
+    console.log(produtos);
+    prod.forEach(item => {
+      item.quant -= item.selectedQuant;
+      item.selectedQuant = 0;
+    });
+    setProdutos(Object.create(prod));
+    console.log(prod);
+  }
+
+  function handleClickConfirm() {
+    withdrawal();
+    props.onClose();
   }
 
   useEffect(() => {
@@ -85,11 +100,11 @@ const ModalAddItem = props => {
           </div>
         </div>
         <div className="modal-footer">
-          <button>Registrar Retirada</button>
+          <button onClick={handleClickConfirm}>Registrar Retirada</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default ModalAddItem;
+export default ModalWithdrawal;
