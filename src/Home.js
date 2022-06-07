@@ -66,7 +66,7 @@ export default function Home() {
         </div>
         <div className="headerBtnContainer">
           <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
-          <button onClick={() => setModalCategoriaVisibility(true)}>Adicionar Categoria</button>
+          <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export default function Home() {
 
       <div className="retiradaBtnContainer categorys">
         <div className="printContainer">
-          <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Print to PDF!</button>} />
+          <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Gerar relatorio</button>} />
         </div>
         <button className="retiradaBtn" onClick={() => setModalWithdrawalVisibility(true)}>
           Registrar Retirada

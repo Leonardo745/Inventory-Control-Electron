@@ -11,12 +11,9 @@ const ModalDetalhe = props => {
     <div className="modal" onClick={props.onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h3 className="modal-title">Detalhes do Produto</h3>
+          <h3 className="modal-title">{props.descricao.name}</h3>
         </div>
         <div className="modal-body-desc">
-          <div>
-            <span className="modal-name-txt">{props.descricao.name}</span>
-          </div>
           <div>
             <span className="modal-desc-txt">{props.descricao.description}</span>
           </div>
