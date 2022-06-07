@@ -67,6 +67,17 @@
   margin-inline: 10px;
 }
 
+.input-alertThreshold {
+  background-color: rgb(205 205 205);
+  width: 10%;
+  max-width: -webkit-fill-available;
+  border-radius: 60px;
+  border-width: 0;
+  padding: 8px;
+  margin-inline: 10px;
+  margin-right: 30px;
+}
+
 .error {
   position: fixed;
   left: 50%;
@@ -86,4 +97,8 @@
 .error-text {
   color: #fff;
   padding: 8px;
+}
+
+.alert-min-span {
+  align-self: center;
 }

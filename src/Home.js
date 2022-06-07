@@ -6,19 +6,24 @@ import ModalWithdrawal from './component/ModalWithdrawal';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
 import ModalNovoItem from './component/ModalNovoItem';
+import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ReactToPrint from 'react-to-print';
 
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
 
+  const [alertThreshold, setAlertThreshold] = useState(0);
+  const [alertVisibility, setAlertVisibility] = useState(false);
   const [modalWithdrawalVisibility, setModalWithdrawalVisibility] = useState(false);
   const [modalCategoriaVisibility, setModalCategoriaVisibility] = useState(false);
   const [modalDetalhesVisibility, setDescricaoVisibility] = useState(false);
   const [modalDescContent, setmodalDescContent] = useState(null);
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
+  const [modalStorageAlertVisibility, setModalStorageAlertVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
+  const [lowStorageItens, setLowStorageItens] = useState([]);
 
-  async function prepareSelected(id, value) {
+  function prepareSelected(id, value) {
     let prod = produtos;
     var localSelectedItens = selectedItens;
     if (value) {
@@ -40,12 +45,39 @@ export default function Home() {
     setSelectedItens(localSelectedItens);
   }
 
+  function storageMonitor() {
+    let prod = produtos;
+    let localLowStorageItens = [];
+    if (prod != null) {
+      prod.category.forEach(cats => {
+        cats.itens.forEach(iten => {
+          if (iten.quant <= produtos.lowStorageAlert) {
+            localLowStorageItens.push(iten);
+            setAlertVisibility(true);
+          }
+        });
+      });
+      if (localLowStorageItens.length == 0) {
+        setAlertVisibility(false);
+      }
+      setLowStorageItens(localLowStorageItens);
+    }
+  }
+
+  function setNewAlertThreshold(newValue) {
+    var newLowStorageAlert = produtos;
+    newLowStorageAlert.lowStorageAlert = newValue;
+    setProdutos(newLowStorageAlert);
+    setAlertThreshold(newValue);
+  }
+
   async function handleLoadData() {
     const result = await Api.readData();
     if (Object.keys(result).length === 0) {
       setProdutos(null);
     } else {
       setProdutos(result);
+      setAlertThreshold(result.lowStorageAlert);
     }
   }
 
@@ -53,6 +85,10 @@ export default function Home() {
     const result = await Api.saveData(produtos);
     console.log('Retorno da Api: ' + result);
   }
+
+  useEffect(() => {
+    storageMonitor();
+  }, [produtos]);
 
   useEffect(() => {
     handleLoadData();
@@ -81,8 +117,9 @@ export default function Home() {
           : null}
       </div>
       <div className="cardsContainer" id="pdf">
-        {produtos != null
-          ? produtos.category.map((produto, key1) => (
+        {produtos != null ? (
+          produtos.category.length != 0 ? (
+            produtos.category.map((produto, key1) => (
               <div key={key1}>
                 <div className="categoryDivisor">
                   <span>{produto.nameCat}</span>
@@ -126,7 +163,12 @@ export default function Home() {
                 ))}
               </div>
             ))
-          : null}
+          ) : (
+            <div className="no-alert">
+              <span>Nenhum item cadastrado</span>
+            </div>
+          )
+        ) : null}
       </div>
 
       <div className="retiradaBtnContainer categorys">
@@ -138,12 +180,33 @@ export default function Home() {
         </button>
       </div>
 
+      {alertVisibility ? (
+        <div
+          className="alert-home"
+          onClick={() => {
+            setModalStorageAlertVisibility(true);
+          }}
+        >
+          <span className="alert-home-text">Alerta de estoque baixo</span>
+        </div>
+      ) : (
+        <div
+          className="alert-home-close"
+          onClick={() => {
+            setModalStorageAlertVisibility(true);
+          }}
+        >
+          <span className="alert-home-text">Alertas</span>
+        </div>
+      )}
+
       <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} produtos={produtos} />
 
       <ModalWithdrawal
         show={modalWithdrawalVisibility}
         onClose={() => {
           setModalWithdrawalVisibility(false);
+          storageMonitor();
           handleSaveData();
         }}
         itens={selectedItens}
@@ -152,6 +215,18 @@ export default function Home() {
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
 
       <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} produtos={produtos} />
+
+      <ModalStorageCtrl
+        show={modalStorageAlertVisibility}
+        onClose={() => setModalStorageAlertVisibility(false)}
+        lowStorageItens={lowStorageItens}
+        alertThreshold={alertThreshold}
+        setNewAlertThresholdCallBack={value => {
+          setNewAlertThreshold(value);
+          storageMonitor();
+          handleSaveData();
+        }}
+      />
     </div>
   );
 }

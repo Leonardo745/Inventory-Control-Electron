@@ -62,41 +62,47 @@ const ModalWithdrawal = props => {
         </div>
         <div className="modal-body">
           <div className="cardsContainerAdd">
-            {produtos.map((produto, key) => (
-              <div key={key} className="cards">
-                <div className="imgInptContainer">
-                  <img className="productImg" src={logo} alt="logo" />
-                </div>
-                <div className="nomeContainer">
-                  <div>
-                    <span>{produto.name}</span>
+            {produtos.length != 0 ? (
+              produtos.map((produto, key) => (
+                <div key={key} className="cards">
+                  <div className="imgInptContainer">
+                    <img className="productImg" src={logo} alt="logo" />
                   </div>
-                  <div>
-                    <span>Quantidade em Estoque: </span>
-                    <span>{produto.quant}</span>
+                  <div className="nomeContainer">
+                    <div>
+                      <span>{produto.name}</span>
+                    </div>
+                    <div>
+                      <span>Quantidade em Estoque: </span>
+                      <span>{produto.quant}</span>
+                    </div>
+                    <div>
+                      <span>Preço: </span>
+                      <span>R$ {produto.value}</span>
+                    </div>
                   </div>
-                  <div>
-                    <span>Preço: </span>
-                    <span>R$ {produto.value}</span>
+                  <div className="subtractContainer">
+                    <button onClick={() => decrement(produto.id)}>-</button>
+                  </div>
+                  <div className="numberContainer">
+                    <span>{produto.selectedQuant}</span>
+                  </div>
+                  <div className="addContainer">
+                    <button
+                      onClick={() => {
+                        increment(produto.id);
+                      }}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
-                <div className="subtractContainer">
-                  <button onClick={() => decrement(produto.id)}>-</button>
-                </div>
-                <div className="numberContainer">
-                  <span>{produto.selectedQuant}</span>
-                </div>
-                <div className="addContainer">
-                  <button
-                    onClick={() => {
-                      increment(produto.id);
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
+              ))
+            ) : (
+              <div className="no-alert">
+                <span>Nenhum item selecionado</span>
               </div>
-            ))}
+            )}
           </div>
         </div>
         <div className="modal-footer">
