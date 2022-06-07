@@ -89,6 +89,12 @@ ipcMain.handle('read-data', event => {
       newSave = { ...newSave, count: 0 };
       updatSave = true;
     }
+
+    if (!data.hasOwnProperty('lowStorageAlert')) {
+      console.log('Nao tem LowStorageAlert');
+      newSave = { ...newSave, lowStorageAlert: 5 };
+      updatSave = true;
+    }
   }
 
   if (updatSave) {
