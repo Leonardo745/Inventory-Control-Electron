@@ -22,6 +22,7 @@ export default function Home() {
   const [modalStorageAlertVisibility, setModalStorageAlertVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
   const [lowStorageItens, setLowStorageItens] = useState([]);
+  const [retirada, setRetirada] = useState(false);
 
   function prepareSelected(id, value) {
     let prod = produtos;
@@ -177,9 +178,26 @@ export default function Home() {
         <div className="printContainer">
           <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Gerar relatorio</button>} />
         </div>
-        <button className="retiradaBtn" onClick={() => setModalWithdrawalVisibility(true)}>
-          Registrar Retirada
-        </button>
+        <div style={{ display: 'flex' }}>
+          <button
+            className="retiradaBtn"
+            onClick={() => {
+              setModalWithdrawalVisibility(true);
+              setRetirada(false);
+            }}
+          >
+            Registrar Adição
+          </button>
+          <button
+            className="retiradaBtn"
+            onClick={() => {
+              setModalWithdrawalVisibility(true);
+              setRetirada(true);
+            }}
+          >
+            Registrar Retirada
+          </button>
+        </div>
       </div>
 
       {alertVisibility ? (
@@ -212,6 +230,7 @@ export default function Home() {
           handleSaveData();
         }}
         itens={selectedItens}
+        retirada={retirada}
       />
 
       <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
