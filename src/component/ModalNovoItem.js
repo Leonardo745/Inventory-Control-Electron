@@ -10,6 +10,7 @@ const ModalNovoItem = props => {
   const [desc, setDesc] = useState('');
   const [preco, setPreco] = useState(0);
   const [quant, setQuant] = useState(0);
+  const [base64Img, setBase64Img] = useState('');
   const [errorVisibility, setErrorVisibility] = useState(false);
 
   async function AddItem(cat, args) {
@@ -53,6 +54,7 @@ const ModalNovoItem = props => {
       value: preco,
       description: desc,
       selectedQuant: 0,
+      img: base64Img,
     });
 
     if (response === 0) {
@@ -71,6 +73,24 @@ const ModalNovoItem = props => {
     setPreco(0);
     setQuant(0);
     setErrorVisibility(false);
+  }
+
+  async function encodeImageFileAsURL(element) {
+    console.log('BASE64');
+    console.log(element);
+    var filesSelected = element;
+
+    var fileToLoad = filesSelected;
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (fileLoadedEvent) {
+      var srcData = fileLoadedEvent.target.result; // <--- data: base64
+      console.log('base64');
+      console.log(srcData);
+      setBase64Img(srcData);
+    };
+    fileReader.readAsDataURL(fileToLoad);
   }
 
   useEffect(() => {
@@ -111,6 +131,8 @@ const ModalNovoItem = props => {
           <input className="modal-searchbar-NovoItem" type="number" onChange={e => setPreco(Number(e.target.value))} />
           <p>Quantidade em estoque inicial:</p>
           <input className="modal-searchbar-NovoItem" type="number" onChange={e => setQuant(Number(e.target.value))} />
+          <p>Foto:</p>
+          <input type="file" name="" id="fileId" onChange={event => encodeImageFileAsURL(event.target.files[0])} />
         </div>
         <div className="modal-footer">
           <button onClick={() => handleClickConfirm()}>Confirmar</button>

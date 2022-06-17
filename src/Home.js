@@ -101,8 +101,8 @@ export default function Home() {
           <input className="searchBar" type="text" id="fname" name="fname" />
         </div>
         <div className="headerBtnContainer">
-          <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
           <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
+          <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
         </div>
       </div>
 
@@ -133,7 +133,9 @@ export default function Home() {
                           prepareSelected(iten.id, value.target.checked);
                         }}
                       />
-                      <img className="productImg" src={logo} alt="logo" />
+                      <div className="imgContainer">
+                        <img className="productImg" src={iten.img} alt="logo" />
+                      </div>
                     </div>
                     <div className="nomeContainer">
                       <div>
