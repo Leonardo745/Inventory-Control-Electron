@@ -11,7 +11,11 @@ const ModalWithdrawal = props => {
     var produtosIncrement = produtos;
     produtosIncrement.forEach(item => {
       if (item.id == id) {
-        if (item.quant > item.selectedQuant) {
+        if (props.retirada) {
+          if (item.quant > item.selectedQuant) {
+            item.selectedQuant = item.selectedQuant + 1;
+          }
+        } else {
           item.selectedQuant = item.selectedQuant + 1;
         }
       }
@@ -33,9 +37,12 @@ const ModalWithdrawal = props => {
 
   async function withdrawal() {
     var prod = produtos;
-    console.log(produtos);
     prod.forEach(item => {
-      item.quant -= item.selectedQuant;
+      if (props.retirada) {
+        item.quant -= item.selectedQuant;
+      } else {
+        item.quant += item.selectedQuant;
+      }
       item.selectedQuant = 0;
     });
     setProdutos(Object.create(prod));
@@ -44,6 +51,15 @@ const ModalWithdrawal = props => {
 
   function handleClickConfirm() {
     withdrawal();
+    closeModal();
+  }
+
+  function closeModal() {
+    var prod = produtos;
+    prod.forEach(item => {
+      item.selectedQuant = 0;
+    });
+
     props.onClose();
   }
 
@@ -55,10 +71,10 @@ const ModalWithdrawal = props => {
     return null;
   }
   return (
-    <div className="modal" onClick={props.onClose}>
+    <div className="modal" onClick={closeModal}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h4 className="modal-title">Lista de retirada</h4>
+          <h4 className="modal-title">{props.retirada ? 'Lista de Retirada' : 'Lista de Adição'}</h4>
         </div>
         <div className="modal-body">
           <div className="cardsContainerAdd">
@@ -66,7 +82,9 @@ const ModalWithdrawal = props => {
               produtos.map((produto, key) => (
                 <div key={key} className="cards">
                   <div className="imgInptContainer">
-                    <img className="productImg" src={logo} alt="logo" />
+                    <div className="imgContainer">
+                      <img className="productImg" src={produto.img} alt="logo" />
+                    </div>
                   </div>
                   <div className="nomeContainer">
                     <div>
@@ -106,7 +124,7 @@ const ModalWithdrawal = props => {
           </div>
         </div>
         <div className="modal-footer">
-          <button onClick={handleClickConfirm}>Registrar Retirada</button>
+          <button onClick={handleClickConfirm}>{props.retirada ? 'Registrar Retirada' : 'Registrar Adição'}</button>
         </div>
       </div>
     </div>
