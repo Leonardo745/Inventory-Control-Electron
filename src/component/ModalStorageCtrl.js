@@ -28,7 +28,9 @@ const ModalStorageCtrl = props => {
               produtos.map((produto, key) => (
                 <div key={key} className="cards color-alert">
                   <div className="imgInptContainer">
-                    <img className="productImg" src={logo} alt="logo" />
+                    <div className="imgContainer">
+                      <img className="productImg" src={produto.img} alt="logo" />
+                    </div>
                   </div>
                   <div className="nomeContainer">
                     <div>
