@@ -56,6 +56,7 @@ const ModalNovoItem = props => {
       value: preco,
       description: desc,
       selectedQuant: 0,
+      checked: false,
       img: base64Img,
     });
 
@@ -69,9 +70,9 @@ const ModalNovoItem = props => {
   function closeModal() {
     props.onClose();
 
-    setNome('');
+    setNome('Produto sem Nome');
     seCat('');
-    setDesc('');
+    setDesc('Produto sem Descrição');
     setPreco(0);
     setQuant(0);
     setErrorVisibility(false);

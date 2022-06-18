@@ -7,6 +7,7 @@ import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
 import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
+import ModalDeleteProduct from './component/ModalDeleteProduct';
 import ReactToPrint from 'react-to-print';
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
   const [modalDescContent, setmodalDescContent] = useState(null);
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [modalStorageAlertVisibility, setModalStorageAlertVisibility] = useState(false);
+  const [modalDeleteProductVisibility, setModalDeleteProductVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
   const [lowStorageItens, setLowStorageItens] = useState([]);
   const [retirada, setRetirada] = useState(false);
@@ -67,9 +69,42 @@ export default function Home() {
 
   function setNewAlertThreshold(newValue) {
     var newLowStorageAlert = produtos;
-    newLowStorageAlert.lowStorageAlert = newValue;
+    newLowStorageAlert.lowStorageAlert = Number(newValue);
     setProdutos(newLowStorageAlert);
-    setAlertThreshold(newValue);
+    setAlertThreshold(Number(newValue));
+  }
+
+  function deleteSelected() {
+    var prod = produtos;
+    var selected = selectedItens;
+    var ids = [];
+
+    selected.forEach(iten => ids.push(iten.id));
+
+    var newCats = prod.category.map(cats => {
+      cats.itens = cats.itens.filter(ele => {
+        var allow = true;
+        ids.forEach(id => {
+          if (ele.id == id) {
+            allow = false;
+          }
+        });
+        return allow;
+      });
+      return cats;
+    });
+    prod.category = newCats;
+    setProdutos(Object.create(prod));
+    unselectAll();
+    handleSaveData();
+  }
+
+  function unselectAll() {
+    setSelectedItens([]);
+    var checkboxes = document.getElementsByName('checkbox');
+    for (var checkbox of checkboxes) {
+      checkbox.checked = false;
+    }
   }
 
   async function handleLoadData() {
@@ -104,6 +139,7 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
           <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
+          <button onClick={() => setModalDeleteProductVisibility(true)}>Remover Produto</button>
         </div>
       </div>
 
@@ -130,7 +166,9 @@ export default function Home() {
                     <div className="imgInptContainer">
                       <input
                         type="checkbox"
+                        name="checkbox"
                         onChange={value => {
+                          //checked = value.target.checked;
                           prepareSelected(iten.id, value.target.checked);
                         }}
                       />
@@ -228,6 +266,7 @@ export default function Home() {
           setModalWithdrawalVisibility(false);
           storageMonitor();
           handleSaveData();
+          unselectAll();
         }}
         itens={selectedItens}
         retirada={retirada}
@@ -248,6 +287,8 @@ export default function Home() {
           handleSaveData();
         }}
       />
+
+      <ModalDeleteProduct show={modalDeleteProductVisibility} onClose={() => setModalDeleteProductVisibility(false)} itens={selectedItens} deleteSelectedCallBack={() => deleteSelected()} />
     </div>
   );
 }
