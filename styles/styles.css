@@ -21,6 +21,7 @@ button {
   border-radius: 50px;
   border-width: 0;
   background-color: lightgrey;
+  cursor: pointer;
 }
 
 .buttonDesc {
@@ -224,4 +225,19 @@ button {
 .no-alert {
   text-align: center;
   padding-top: 175px;
+}
+
+.icon-trash-container {
+  height: 60%;
+  cursor: pointer;
+}
+
+.icon-trash-img {
+  height: 100%;
+  opacity: 30%;
+}
+
+.name-cat-txt {
+  width: 515px;
+  text-align: center;
 }

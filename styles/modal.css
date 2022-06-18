@@ -28,6 +28,12 @@
   justify-content: flex-end;
 }
 
+.modal-footer-delete {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .modal-title {
   margin: 0;
 }
@@ -46,6 +52,14 @@
 }
 
 .modal-body-desc {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-body-delete {
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -101,4 +115,17 @@
 
 .alert-min-span {
   align-self: center;
+}
+
+.modal-delete-txt {
+  font-weight: bold;
+}
+
+.btn-yep {
+  width: 90px;
+}
+
+.btn-noop {
+  background-color: rgb(243, 104, 104);
+  width: 90px;
 }
