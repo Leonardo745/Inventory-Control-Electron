@@ -1,4 +1,4 @@
-import logo from '../public/images/logo.svg';
+import trash from '../public/images/trashIcon.png';
 import '../styles/styles.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -8,6 +8,7 @@ import ModalCategoria from './component/ModalCategorias';
 import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ModalDeleteProduct from './component/ModalDeleteProduct';
+import ModalConfirmDelete from './component/ModalConfirmDelete';
 import ReactToPrint from 'react-to-print';
 
 export default function Home() {
@@ -22,9 +23,13 @@ export default function Home() {
   const [modalNovoItemVisibility, setmodalNovoItemVisibility] = useState(false);
   const [modalStorageAlertVisibility, setModalStorageAlertVisibility] = useState(false);
   const [modalDeleteProductVisibility, setModalDeleteProductVisibility] = useState(false);
+  const [modalConfirmDeleteVisibility, setModalConfirmDeleteVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
   const [lowStorageItens, setLowStorageItens] = useState([]);
   const [retirada, setRetirada] = useState(false);
+  const [deleteCat, setDeleteCat] = useState(false);
+
+  //var deleteCat;
 
   function prepareSelected(id, value) {
     let prod = produtos;
@@ -99,6 +104,17 @@ export default function Home() {
     handleSaveData();
   }
 
+  function deleteCategory() {
+    var prod = produtos;
+    console.log(deleteCat);
+    var newCats = prod.category.filter(cats => {
+      return cats.nameCat != deleteCat;
+    });
+    prod.category = newCats;
+    setProdutos(Object.create(prod));
+    handleSaveData();
+  }
+
   function unselectAll() {
     setSelectedItens([]);
     var checkboxes = document.getElementsByName('checkbox');
@@ -159,7 +175,18 @@ export default function Home() {
             produtos.category.map((produto, key1) => (
               <div key={key1}>
                 <div className="categoryDivisor">
-                  <span>{produto.nameCat}</span>
+                  <span className="name-cat-txt">{produto.nameCat}</span>
+                  <div
+                    className="icon-trash-container"
+                    onClick={() => {
+                      //deleteCat = produto.nameCat;
+                      setDeleteCat(produto.nameCat);
+                      setModalConfirmDeleteVisibility(true);
+                      //deleteCategory();
+                    }}
+                  >
+                    <img className="icon-trash-img" src={trash}></img>
+                  </div>
                 </div>
                 {produto.itens.map((iten, key2) => (
                   <div key={key2} className="cards">
@@ -258,7 +285,14 @@ export default function Home() {
         </div>
       )}
 
-      <ModalNovoItem show={modalNovoItemVisibility} onClose={() => setmodalNovoItemVisibility(false)} produtos={produtos} />
+      <ModalNovoItem
+        show={modalNovoItemVisibility}
+        onClose={() => {
+          setmodalNovoItemVisibility(false);
+          storageMonitor();
+        }}
+        produtos={produtos}
+      />
 
       <ModalWithdrawal
         show={modalWithdrawalVisibility}
@@ -289,6 +323,8 @@ export default function Home() {
       />
 
       <ModalDeleteProduct show={modalDeleteProductVisibility} onClose={() => setModalDeleteProductVisibility(false)} itens={selectedItens} deleteSelectedCallBack={() => deleteSelected()} />
+
+      <ModalConfirmDelete show={modalConfirmDeleteVisibility} onClose={() => setModalConfirmDeleteVisibility(false)} deleteCat={deleteCat} deleteCallBack={() => deleteCategory()} />
     </div>
   );
 }

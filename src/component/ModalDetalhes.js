@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../styles/modal.css';
 import '../../styles/styles.css';
-import logo from '../../public/images/logo.svg';
 
 const ModalDetalhe = props => {
   if (!props.show) {
