@@ -46,7 +46,6 @@ const ModalWithdrawal = props => {
       item.selectedQuant = 0;
     });
     setProdutos(Object.create(prod));
-    console.log(prod);
   }
 
   function handleClickConfirm() {

@@ -13,6 +13,7 @@ import ReactToPrint from 'react-to-print';
 
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
+  const [produtosDisplay, setProdutosDisplay] = useState(null);
 
   const [alertThreshold, setAlertThreshold] = useState(0);
   const [alertVisibility, setAlertVisibility] = useState(false);
@@ -28,8 +29,7 @@ export default function Home() {
   const [lowStorageItens, setLowStorageItens] = useState([]);
   const [retirada, setRetirada] = useState(false);
   const [deleteCat, setDeleteCat] = useState(false);
-
-  //var deleteCat;
+  const [activeCatBtn, setActiveCatBtn] = useState(-1);
 
   function prepareSelected(id, value) {
     let prod = produtos;
@@ -106,12 +106,13 @@ export default function Home() {
 
   function deleteCategory() {
     var prod = produtos;
-    console.log(deleteCat);
     var newCats = prod.category.filter(cats => {
       return cats.nameCat != deleteCat;
     });
     prod.category = newCats;
     setProdutos(Object.create(prod));
+    setActiveCatBtn(-1);
+    filterCat(true, null);
     handleSaveData();
   }
 
@@ -123,12 +124,27 @@ export default function Home() {
     }
   }
 
+  function filterCat(showAll, cat) {
+    if (!showAll) {
+      var newDisplay = Object.create(produtos);
+      var fiteredCatsDisplay = newDisplay.category.filter(cats => {
+        return cats.nameCat == cat;
+      });
+      newDisplay.category = fiteredCatsDisplay;
+      setProdutosDisplay(Object.create(newDisplay));
+    } else {
+      setProdutosDisplay(Object.create(produtos));
+    }
+  }
+
   async function handleLoadData() {
     const result = await Api.readData();
     if (Object.keys(result).length === 0) {
       setProdutos(null);
+      setProdutosDisplay(null);
     } else {
       setProdutos(result);
+      setProdutosDisplay(result);
       setAlertThreshold(result.lowStorageAlert);
     }
   }
@@ -160,42 +176,64 @@ export default function Home() {
       </div>
 
       <div className="categorys">
-        <button>Todos</button>
+        <button
+          className={`base-class ${activeCatBtn == -1 ? 'active-color' : ''}`}
+          onClick={() => {
+            filterCat(true, null);
+            setActiveCatBtn(-1);
+          }}
+        >
+          Todos
+        </button>
         {produtos != null
           ? produtos.category.map((category, key) => (
               <div key={key}>
-                <button>{category.nameCat}</button>
+                <button
+                  className={`base-class ${activeCatBtn == key ? 'active-color' : ''}`}
+                  onClick={() => {
+                    filterCat(false, category.nameCat);
+                    setActiveCatBtn(key);
+                  }}
+                >
+                  {category.nameCat}
+                </button>
               </div>
             ))
           : null}
       </div>
       <div className="cardsContainer" id="pdf">
-        {produtos != null ? (
-          produtos.category.length != 0 ? (
-            produtos.category.map((produto, key1) => (
+        {produtosDisplay != null ? (
+          produtosDisplay.category.length != 0 ? (
+            produtosDisplay.category.map((produto, key1) => (
               <div key={key1}>
                 <div className="categoryDivisor">
                   <span className="name-cat-txt">{produto.nameCat}</span>
                   <div
                     className="icon-trash-container"
                     onClick={() => {
-                      //deleteCat = produto.nameCat;
                       setDeleteCat(produto.nameCat);
                       setModalConfirmDeleteVisibility(true);
-                      //deleteCategory();
                     }}
                   >
                     <img className="icon-trash-img" src={trash}></img>
                   </div>
                 </div>
                 {produto.itens.map((iten, key2) => (
-                  <div key={key2} className="cards">
+                  <div
+                    key={key2}
+                    className="cards"
+                    onClick={() => {
+                      document.getElementById(iten.id).checked = document.getElementById(iten.id).checked !== true;
+                      prepareSelected(iten.id, document.getElementById(iten.id).checked !== false);
+                    }}
+                  >
                     <div className="imgInptContainer">
                       <input
                         type="checkbox"
+                        id={iten.id}
                         name="checkbox"
+                        onClick={e => e.stopPropagation()}
                         onChange={value => {
-                          //checked = value.target.checked;
                           prepareSelected(iten.id, value.target.checked);
                         }}
                       />
@@ -219,7 +257,8 @@ export default function Home() {
                     <div className="descripContainer">
                       <button
                         className="buttonDesc"
-                        onClick={() => {
+                        onClick={e => {
+                          e.stopPropagation();
                           setDescricaoVisibility(true);
                           setmodalDescContent(iten);
                         }}

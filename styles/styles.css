@@ -69,6 +69,7 @@ button {
   align-content: center;
   place-items: center;
   margin: 10px;
+  overflow: scroll;
 }
 
 .cardsContainer {
@@ -240,4 +241,14 @@ button {
 .name-cat-txt {
   width: 515px;
   text-align: center;
+}
+
+.base-class {
+  background-color: rgb(218, 218, 218);
+  height: 30px;
+  min-width: 75px;
+  white-space: nowrap;
+}
+.active-color {
+  background-color: #909090;
 }

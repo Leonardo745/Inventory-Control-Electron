@@ -29,10 +29,10 @@ const ModalConfirmDelete = props => {
         </div>
         <div className="modal-footer-delete">
           <div style={{ display: 'flex' }}>
-            <button class="btn-yep" onClick={callDeleteCat}>
+            <button className="btn-yep" onClick={callDeleteCat}>
               Sim
             </button>
-            <button class="btn-noop" onClick={props.onClose}>
+            <button className="btn-noop" onClick={props.onClose}>
               Não
             </button>
           </div>

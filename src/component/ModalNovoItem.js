@@ -56,7 +56,6 @@ const ModalNovoItem = props => {
       value: preco,
       description: desc,
       selectedQuant: 0,
-      checked: false,
       img: base64Img,
     });
 
