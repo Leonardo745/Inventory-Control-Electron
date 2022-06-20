@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/modal.css';
 import '../../styles/styles.css';
+import defaultProductImg from '../../public/images/defaultProduct.png';
 import { useState, useEffect } from 'react';
 
 const ModalDeleteProduct = props => {
@@ -44,7 +45,7 @@ const ModalDeleteProduct = props => {
                 <div key={key} className="cards">
                   <div className="imgInptContainer">
                     <div className="imgContainer">
-                      <img className="productImg" src={produto.img} alt="logo" />
+                      <img className="productImg" src={produto.img == null ? defaultProductImg : produto.img} alt="logo" />
                     </div>
                   </div>
                   <div className="nomeContainer">

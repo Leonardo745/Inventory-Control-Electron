@@ -9,7 +9,7 @@ import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ModalDeleteProduct from './component/ModalDeleteProduct';
 import ModalConfirmDelete from './component/ModalConfirmDelete';
-import defaultProduct from '../public/images/defaultProduct.png';
+import defaultProductImg from '../public/images/defaultProduct.png';
 import Exportpdf from './component/Exportpdf';
 
 export default function Home() {
@@ -294,7 +294,7 @@ export default function Home() {
                         }}
                       />
                       <div className="imgContainer">
-                        <img className="productImg" src={iten.img == null ? defaultProduct : iten.img} alt="logo" />
+                        <img className="productImg" src={iten.img == null ? defaultProductImg : iten.img} alt="logo" />
                       </div>
                     </div>
                     <div className="nomeContainer">
