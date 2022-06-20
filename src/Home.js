@@ -33,7 +33,7 @@ export default function Home() {
   const [deleteCat, setDeleteCat] = useState(false);
   const [activeCatBtn, setActiveCatBtn] = useState(-1);
   //const componentRef = useRef();
-
+  var canReadData = true;
   var searchInput = '';
 
   function prepareSelected(id, value) {
@@ -85,7 +85,7 @@ export default function Home() {
   }
 
   function deleteSelected() {
-    var prod = produtos;
+    var prod = Object.create(produtos);
     var selected = selectedItens;
     var ids = [];
 
@@ -110,7 +110,7 @@ export default function Home() {
   }
 
   function deleteId(id) {
-    var prod = produtos;
+    var prod = Object.create(produtos);
 
     var newCats = prod.category.map(cats => {
       cats.itens = cats.itens.filter(ele => {
@@ -196,13 +196,19 @@ export default function Home() {
     }
   }
 
-  async function handleSaveData() {
+  async function handleSaveData(cantReadData) {
     const result = await Api.saveData(produtos);
     console.log('Retorno da Api: ' + result);
+    if (!cantReadData) {
+      setTimeout(() => {
+        handleLoadData();
+      }, 100);
+    }
   }
 
   useEffect(() => {
     storageMonitor();
+    console.log(produtos);
   }, [produtos]);
 
   useEffect(() => {
@@ -389,6 +395,11 @@ export default function Home() {
           storageMonitor();
         }}
         produtos={produtos}
+        atualizarProdCallBack={prod => {
+          setTimeout(() => {
+            handleLoadData();
+          }, 100);
+        }}
       />
 
       <ModalWithdrawal
@@ -422,7 +433,7 @@ export default function Home() {
         setNewAlertThresholdCallBack={value => {
           setNewAlertThreshold(value);
           storageMonitor();
-          handleSaveData();
+          handleSaveData(true);
         }}
       />
 

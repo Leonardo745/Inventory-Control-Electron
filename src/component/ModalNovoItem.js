@@ -3,7 +3,7 @@ import '../../styles/modal.css';
 import '../../styles/styles.css';
 
 const ModalNovoItem = props => {
-  const [produtos, setProdutos] = useState(null);
+  const [prodAddItem, setProdAddItem] = useState(null);
 
   const [nome, setNome] = useState('Produto sem Nome');
   const [cat, seCat] = useState('');
@@ -14,11 +14,11 @@ const ModalNovoItem = props => {
   const [errorVisibility, setErrorVisibility] = useState(false);
 
   async function AddItem(cat, args) {
-    var prod = produtos;
-    args.id = produtos.count + 1;
+    var prod = Object.create(prodAddItem);
+    args.id = prodAddItem.count + 1;
 
     var catExist = false;
-    produtos.category.forEach(item => {
+    prodAddItem.category.forEach(item => {
       if (item.nameCat == cat) {
         catExist = true;
         console.log("Categoria '" + cat + "' encontrada");
@@ -26,7 +26,7 @@ const ModalNovoItem = props => {
     });
 
     if (catExist) {
-      var map = produtos.category.map(item => {
+      var map = prodAddItem.category.map(item => {
         if (item.nameCat == cat) {
           item.itens.push(args);
           console.log("Produto '" + args.name + "' Adicionado");
@@ -36,7 +36,8 @@ const ModalNovoItem = props => {
       prod.category = map;
       prod.count++;
 
-      setProdutos(Object.create(prod));
+      setProdAddItem(Object.create(prod));
+      props.atualizarProdCallBack(prod);
       let result = await Api.saveData(prod);
       console.log('Retorno da Api: ' + result);
       return 0;
@@ -95,8 +96,9 @@ const ModalNovoItem = props => {
   }
 
   useEffect(() => {
-    setProdutos(props.produtos);
-  }, [props.produtos]);
+    setProdAddItem(Object.create(props.produtos));
+    console.log('atualizou');
+  }, [props.produtos, props.show]);
 
   if (!props.show) {
     return null;
@@ -128,7 +130,7 @@ const ModalNovoItem = props => {
             <option value="" disabled>
               Selecione uma Categoria
             </option>
-            {produtos.category.map((category, key) => (
+            {prodAddItem.category.map((category, key) => (
               <option key={key} value={category.nameCat}>
                 {category.nameCat}
               </option>
