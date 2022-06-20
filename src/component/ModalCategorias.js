@@ -6,6 +6,7 @@ const ModalCategoria = props => {
   const [produtos, setProdutos] = useState(null);
 
   const [errorVisibility, setErrorVisibility] = useState(false);
+  const [errorCatEmptVisibility, setErrorCatEmptVisibility] = useState(false);
   const [cat, seCat] = useState('');
 
   async function AddCategory(cat) {
@@ -17,6 +18,12 @@ const ModalCategoria = props => {
         console.log("Categoria '" + cat + "' já existe!");
       }
     });
+    if (cat == '') {
+      catExist = true;
+      setErrorCatEmptVisibility(true);
+      console.log('Categoria Vazia');
+    }
+
     if (!catExist) {
       var prod = produtos;
       var newCat = { nameCat: cat, itens: [] };
@@ -44,6 +51,8 @@ const ModalCategoria = props => {
   function closeModal() {
     props.onClose();
     setErrorVisibility(false);
+    setErrorCatEmptVisibility(false);
+    seCat('');
   }
 
   useEffect(() => {
@@ -57,7 +66,7 @@ const ModalCategoria = props => {
     <div className="modal" onClick={closeModal}>
       {errorVisibility ? (
         <div className="error">
-          <span className="error-text">Categoria "{cat}" já existe</span>
+          <span className="error-text">{errorCatEmptVisibility ? 'O campo Categoria deve ser preechido' : 'Categoria "' + cat + '" já existe'}</span>
         </div>
       ) : null}
       <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -72,7 +81,8 @@ const ModalCategoria = props => {
             type="text"
             onChange={e => {
               seCat(e.target.value);
-              //setErrorVisibility(false);
+              setErrorVisibility(false);
+              setErrorCatEmptVisibility(false);
             }}
           />
         </div>

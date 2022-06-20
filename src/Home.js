@@ -1,7 +1,7 @@
 import trash from '../public/images/trashIcon.png';
 import '../styles/styles.css';
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import ModalWithdrawal from './component/ModalWithdrawal';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
@@ -9,6 +9,7 @@ import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ModalDeleteProduct from './component/ModalDeleteProduct';
 import ModalConfirmDelete from './component/ModalConfirmDelete';
+import defaultProductImg from '../public/images/defaultProduct.png';
 import Exportpdf from './component/Exportpdf';
 
 export default function Home() {
@@ -32,7 +33,7 @@ export default function Home() {
   const [deleteCat, setDeleteCat] = useState(false);
   const [activeCatBtn, setActiveCatBtn] = useState(-1);
   //const componentRef = useRef();
-
+  var canReadData = true;
   var searchInput = '';
 
   function prepareSelected(id, value) {
@@ -84,7 +85,7 @@ export default function Home() {
   }
 
   function deleteSelected() {
-    var prod = produtos;
+    var prod = Object.create(produtos);
     var selected = selectedItens;
     var ids = [];
 
@@ -99,6 +100,21 @@ export default function Home() {
           }
         });
         return allow;
+      });
+      return cats;
+    });
+    prod.category = newCats;
+    setProdutos(Object.create(prod));
+    unselectAll();
+    handleSaveData();
+  }
+
+  function deleteId(id) {
+    var prod = Object.create(produtos);
+
+    var newCats = prod.category.map(cats => {
+      cats.itens = cats.itens.filter(ele => {
+        return ele.id != id;
       });
       return cats;
     });
@@ -180,13 +196,19 @@ export default function Home() {
     }
   }
 
-  async function handleSaveData() {
+  async function handleSaveData(cantReadData) {
     const result = await Api.saveData(produtos);
     console.log('Retorno da Api: ' + result);
+    if (!cantReadData) {
+      setTimeout(() => {
+        handleLoadData();
+      }, 100);
+    }
   }
 
   useEffect(() => {
     storageMonitor();
+    console.log(produtos);
   }, [produtos]);
 
   useEffect(() => {
@@ -211,7 +233,7 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
           <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
-          <button onClick={() => setModalDeleteProductVisibility(true)}>Remover Produto</button>
+          <button onClick={() => setModalDeleteProductVisibility(true)}>Remover Selecionados</button>
         </div>
       </div>
 
@@ -278,7 +300,7 @@ export default function Home() {
                         }}
                       />
                       <div className="imgContainer">
-                        <img className="productImg" src={iten.img} alt="logo" />
+                        <img className="productImg" src={iten.img == null ? defaultProductImg : iten.img} alt="logo" />
                       </div>
                     </div>
                     <div className="nomeContainer">
@@ -303,7 +325,7 @@ export default function Home() {
                           setmodalDescContent(iten);
                         }}
                       >
-                        Descrição
+                        Detalhes
                       </button>
                     </div>
                   </div>
@@ -373,6 +395,11 @@ export default function Home() {
           storageMonitor();
         }}
         produtos={produtos}
+        atualizarProdCallBack={prod => {
+          setTimeout(() => {
+            handleLoadData();
+          }, 100);
+        }}
       />
 
       <ModalWithdrawal
@@ -387,7 +414,14 @@ export default function Home() {
         retirada={retirada}
       />
 
-      <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
+      <ModalDetalhes
+        show={modalDetalhesVisibility}
+        onClose={() => setDescricaoVisibility(false)}
+        descricao={modalDescContent}
+        deleteCallBack={id => {
+          deleteId(id);
+        }}
+      />
 
       <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} produtos={produtos} />
 
@@ -399,7 +433,7 @@ export default function Home() {
         setNewAlertThresholdCallBack={value => {
           setNewAlertThreshold(value);
           storageMonitor();
-          handleSaveData();
+          handleSaveData(true);
         }}
       />
 

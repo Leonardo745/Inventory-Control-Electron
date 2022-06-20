@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/modal.css';
 import '../../styles/styles.css';
-import logo from '../../public/images/logo.svg';
+import defaultProductImg from '../../public/images/defaultProduct.png';
 import { useState, useEffect } from 'react';
 
 const ModalStorageCtrl = props => {
@@ -29,7 +29,7 @@ const ModalStorageCtrl = props => {
                 <div key={key} className="cards color-alert">
                   <div className="imgInptContainer">
                     <div className="imgContainer">
-                      <img className="productImg" src={produto.img} alt="logo" />
+                      <img className="productImg" src={produto.img == null ? defaultProductImg : produto.img} alt="logo" />
                     </div>
                   </div>
                   <div className="nomeContainer">

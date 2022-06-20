@@ -17,7 +17,16 @@ const ModalDetalhe = props => {
             <span className="modal-desc-txt">{props.descricao.description}</span>
           </div>
         </div>
-        <div className="modal-footer"></div>
+        <div className="modal-footer">
+          <button
+            onClick={() => {
+              props.deleteCallBack(props.descricao.id);
+              props.onClose();
+            }}
+          >
+            Deletar Produto
+          </button>
+        </div>
       </div>
     </div>
   );
