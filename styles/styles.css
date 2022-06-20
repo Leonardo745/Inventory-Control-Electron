@@ -57,6 +57,7 @@ button {
   border-radius: 60px;
   border-width: 0;
   padding: 8px;
+  padding-inline: 15px;
   margin-inline: 10px;
 }
 
@@ -239,7 +240,7 @@ button {
 }
 
 .name-cat-txt {
-  width: 515px;
+  width: 94%;
   text-align: center;
 }
 
