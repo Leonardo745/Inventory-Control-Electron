@@ -1,7 +1,7 @@
 import trash from '../public/images/trashIcon.png';
 import '../styles/styles.css';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ModalWithdrawal from './component/ModalWithdrawal';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
@@ -9,7 +9,7 @@ import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ModalDeleteProduct from './component/ModalDeleteProduct';
 import ModalConfirmDelete from './component/ModalConfirmDelete';
-import ReactToPrint from 'react-to-print';
+import Exportpdf from './component/Exportpdf';
 
 export default function Home() {
   const [produtos, setProdutos] = useState(null);
@@ -25,11 +25,13 @@ export default function Home() {
   const [modalStorageAlertVisibility, setModalStorageAlertVisibility] = useState(false);
   const [modalDeleteProductVisibility, setModalDeleteProductVisibility] = useState(false);
   const [modalConfirmDeleteVisibility, setModalConfirmDeleteVisibility] = useState(false);
+  const [modalExportPdfVisibility, setModalExportPdfVisibility] = useState(false);
   const [selectedItens, setSelectedItens] = useState([]);
   const [lowStorageItens, setLowStorageItens] = useState([]);
   const [retirada, setRetirada] = useState(false);
   const [deleteCat, setDeleteCat] = useState(false);
   const [activeCatBtn, setActiveCatBtn] = useState(-1);
+  //const componentRef = useRef();
 
   var searchInput = '';
 
@@ -239,7 +241,7 @@ export default function Home() {
             ))
           : null}
       </div>
-      <div className="cardsContainer" id="pdf">
+      <div className="cardsContainer">
         {produtosDisplay != null ? (
           produtosDisplay.category.length != 0 ? (
             produtosDisplay.category.map((produto, key1) => (
@@ -318,7 +320,9 @@ export default function Home() {
 
       <div className="retiradaBtnContainer categorys">
         <div className="printContainer">
-          <ReactToPrint content={() => document.getElementById('pdf')} trigger={() => <button className="btn-primary">Gerar relatorio</button>} />
+          <button onClick={() => setModalExportPdfVisibility(true)} className="btn-primary">
+            Gerar relatorio
+          </button>
         </div>
         <div style={{ display: 'flex' }}>
           <button
@@ -402,6 +406,8 @@ export default function Home() {
       <ModalDeleteProduct show={modalDeleteProductVisibility} onClose={() => setModalDeleteProductVisibility(false)} itens={selectedItens} deleteSelectedCallBack={() => deleteSelected()} />
 
       <ModalConfirmDelete show={modalConfirmDeleteVisibility} onClose={() => setModalConfirmDeleteVisibility(false)} deleteCat={deleteCat} deleteCallBack={() => deleteCategory()} />
+
+      <Exportpdf show={modalExportPdfVisibility} produtos={produtos} onClose={() => setModalExportPdfVisibility(false)} />
     </div>
   );
 }
