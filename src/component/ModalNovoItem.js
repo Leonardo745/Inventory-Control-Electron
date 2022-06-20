@@ -105,7 +105,7 @@ const ModalNovoItem = props => {
     <div className="modal" onClick={closeModal}>
       {errorVisibility ? (
         <div className="error">
-          <span className="error-text">Categoria "{cat}" não encontrada</span>
+          <span className="error-text">Por favor, selecione uma categoria</span>
         </div>
       ) : null}
 
@@ -117,15 +117,23 @@ const ModalNovoItem = props => {
           <p>Nome:</p>
           <input maxLength={30} className="modal-searchbar-NovoItem" type="text" onChange={e => setNome(e.target.value)} />
           <p>Categoria:</p>
-          <input
-            maxLength={17}
+          <select
+            defaultValue=""
             className="modal-searchbar-NovoItem"
-            type="text"
             onChange={e => {
               seCat(e.target.value);
               setErrorVisibility(false);
             }}
-          />
+          >
+            <option value="" disabled>
+              Selecione uma Categoria
+            </option>
+            {produtos.category.map((category, key) => (
+              <option key={key} value={category.nameCat}>
+                {category.nameCat}
+              </option>
+            ))}
+          </select>
           <p>Descricao:</p>
           <input className="modal-searchbar-NovoItem" type="text" onChange={e => setDesc(e.target.value)} />
           <p>Preço:</p>
