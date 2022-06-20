@@ -1,7 +1,7 @@
 import trash from '../public/images/trashIcon.png';
 import '../styles/styles.css';
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import ModalWithdrawal from './component/ModalWithdrawal';
 import ModalDetalhes from './component/ModalDetalhes';
 import ModalCategoria from './component/ModalCategorias';
@@ -9,6 +9,7 @@ import ModalNovoItem from './component/ModalNovoItem';
 import ModalStorageCtrl from './component/ModalStorageCtrl';
 import ModalDeleteProduct from './component/ModalDeleteProduct';
 import ModalConfirmDelete from './component/ModalConfirmDelete';
+import defaultProduct from '../public/images/defaultProduct.png';
 import Exportpdf from './component/Exportpdf';
 
 export default function Home() {
@@ -278,7 +279,7 @@ export default function Home() {
                         }}
                       />
                       <div className="imgContainer">
-                        <img className="productImg" src={iten.img} alt="logo" />
+                        <img className="productImg" src={iten.img == null ? defaultProduct : iten.img} alt="logo" />
                       </div>
                     </div>
                     <div className="nomeContainer">
