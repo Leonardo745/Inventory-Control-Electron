@@ -109,6 +109,21 @@ export default function Home() {
     handleSaveData();
   }
 
+  function deleteId(id) {
+    var prod = produtos;
+
+    var newCats = prod.category.map(cats => {
+      cats.itens = cats.itens.filter(ele => {
+        return ele.id != id;
+      });
+      return cats;
+    });
+    prod.category = newCats;
+    setProdutos(Object.create(prod));
+    unselectAll();
+    handleSaveData();
+  }
+
   function deleteCategory() {
     var prod = produtos;
     var newCats = prod.category.filter(cats => {
@@ -212,7 +227,7 @@ export default function Home() {
         <div className="headerBtnContainer">
           <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
           <button onClick={() => setmodalNovoItemVisibility(true)}>Adicionar Produto</button>
-          <button onClick={() => setModalDeleteProductVisibility(true)}>Remover Produto</button>
+          <button onClick={() => setModalDeleteProductVisibility(true)}>Remover Selecionados</button>
         </div>
       </div>
 
@@ -304,7 +319,7 @@ export default function Home() {
                           setmodalDescContent(iten);
                         }}
                       >
-                        Descrição
+                        Detalhes
                       </button>
                     </div>
                   </div>
@@ -388,7 +403,14 @@ export default function Home() {
         retirada={retirada}
       />
 
-      <ModalDetalhes show={modalDetalhesVisibility} onClose={() => setDescricaoVisibility(false)} descricao={modalDescContent} />
+      <ModalDetalhes
+        show={modalDetalhesVisibility}
+        onClose={() => setDescricaoVisibility(false)}
+        descricao={modalDescContent}
+        deleteCallBack={id => {
+          deleteId(id);
+        }}
+      />
 
       <ModalCategoria show={modalCategoriaVisibility} onClose={() => setModalCategoriaVisibility(false)} produtos={produtos} />
 
