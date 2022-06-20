@@ -31,6 +31,8 @@ export default function Home() {
   const [deleteCat, setDeleteCat] = useState(false);
   const [activeCatBtn, setActiveCatBtn] = useState(-1);
 
+  var searchInput = '';
+
   function prepareSelected(id, value) {
     let prod = produtos;
     var localSelectedItens = selectedItens;
@@ -125,6 +127,8 @@ export default function Home() {
   }
 
   function filterCat(showAll, cat) {
+    unselectAll();
+    document.getElementById('searchBar').value = '';
     if (!showAll) {
       var newDisplay = Object.create(produtos);
       var fiteredCatsDisplay = newDisplay.category.filter(cats => {
@@ -133,6 +137,31 @@ export default function Home() {
       newDisplay.category = fiteredCatsDisplay;
       setProdutosDisplay(Object.create(newDisplay));
     } else {
+      setProdutosDisplay(Object.create(produtos));
+    }
+  }
+
+  function filterProduct() {
+    setActiveCatBtn(-2);
+    unselectAll();
+    if (searchInput != '') {
+      var newDisplay = Object.create(produtos);
+      var fiteredCatsDisplay = newDisplay.category.map(cats => {
+        var newCats = {};
+        newCats.nameCat = cats.nameCat;
+        newCats.itens = cats.itens.filter(ele => {
+          return ele.name.toUpperCase().includes(searchInput.toUpperCase());
+        });
+        return newCats;
+      });
+
+      newDisplay.category = fiteredCatsDisplay.filter(cats => {
+        return cats.itens.length > 0;
+      });
+
+      setProdutosDisplay(Object.create(newDisplay));
+    } else {
+      setActiveCatBtn(-1);
       setProdutosDisplay(Object.create(produtos));
     }
   }
@@ -166,7 +195,16 @@ export default function Home() {
     <div className="container">
       <div className="header">
         <div className="searchBarContainer">
-          <input className="searchBar" type="text" id="fname" name="fname" />
+          <input
+            placeholder="Buscar Produto"
+            className="searchBar"
+            type="text"
+            id="searchBar"
+            onChange={e => {
+              searchInput = e.target.value;
+              filterProduct();
+            }}
+          />
         </div>
         <div className="headerBtnContainer">
           <button onClick={() => setModalCategoriaVisibility(true)}>Categorias</button>
