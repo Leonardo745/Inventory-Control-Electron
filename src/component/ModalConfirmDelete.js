@@ -15,7 +15,7 @@ const ModalConfirmDelete = props => {
     <div className="modal" onClick={props.onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h3 className="modal-title">Deltetar Categoria</h3>
+          <h3 className="modal-title">Deletar Categoria</h3>
         </div>
         <div className="modal-body-delete">
           <div>
