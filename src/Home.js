@@ -32,8 +32,6 @@ export default function Home() {
   const [retirada, setRetirada] = useState(false);
   const [deleteCat, setDeleteCat] = useState(false);
   const [activeCatBtn, setActiveCatBtn] = useState(-1);
-  //const componentRef = useRef();
-  var canReadData = true;
   var searchInput = '';
 
   function prepareSelected(id, value) {
@@ -202,7 +200,7 @@ export default function Home() {
     if (!cantReadData) {
       setTimeout(() => {
         handleLoadData();
-      }, 100);
+      }, 600);
     }
   }
 
@@ -398,7 +396,7 @@ export default function Home() {
         atualizarProdCallBack={prod => {
           setTimeout(() => {
             handleLoadData();
-          }, 100);
+          }, 600);
         }}
       />
 
