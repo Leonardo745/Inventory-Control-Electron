@@ -1,3 +1,2 @@
-
- import './App.jsx';
- import './index.css';
+import './App.jsx';
+import './index.css';
